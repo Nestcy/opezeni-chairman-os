@@ -1,10 +1,9 @@
-import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Activity, Sparkles } from "lucide-react";
+import { Activity } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { DEPARTMENTS } from "@/lib/opezeni";
-import { CountUp, MagneticButton, StatusDot } from "./primitives";
+import { CountUp, StatusDot } from "./primitives";
 
 const AGENTS = DEPARTMENTS.filter((d) => d.id !== "founder" && d.id !== "sales");
 
