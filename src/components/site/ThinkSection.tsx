@@ -161,7 +161,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
         <div className="relative min-h-[180px]">
           <motion.div style={{ opacity: act1Text }} className="absolute inset-0">
             <h2 className="text-3xl font-semibold text-balance-tight sm:text-4xl">
-              Every decision flows through one person.
+              Every decision flows through you.
             </h2>
             <p className="mt-4 text-muted-foreground">
               That's not a company. That's a bottleneck.

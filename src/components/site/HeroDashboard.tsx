@@ -64,7 +64,7 @@ export function HeroDashboard() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a href="#think">
               <MagneticButton className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground glow-accent">
-                See Opezeni Think
+                Experience Opezeni
                 <ArrowRight className="h-4 w-4" />
               </MagneticButton>
             </a>
