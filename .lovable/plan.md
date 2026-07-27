@@ -1,24 +1,25 @@
-Remove the live Opezeni console (`HeroDashboard`) from the opening sequence and simplify the hero to a pure film → headline handoff.
+## Problem
 
-## What will change
+The "Experience Opezeni" and "Book Discovery Call" CTAs live inside `CinematicOpening`. `CinematicOpening` and `ThinkSection` both use `z-10`, and because `ThinkSection` appears later in the DOM it stacks on top. The ThinkSection glass card therefore hides the hero CTAs during the handoff at the bottom of the cinematic scroll.
 
-1. **`src/components/site/CinematicOpening.tsx`**
-   - Delete the `<HeroDashboard embedded />` call inside the scroll-driven `Stage`.
-   - Delete the `<HeroDashboard />` call inside the reduced-motion `StaticOpening`.
-   - Remove the now-unused `dashY`, `dashScale`, and `dashOpacity` scroll transforms.
-   - Retune the remaining transforms so the experience still feels cinematic without the console:
-     - Film holds full strength longer, then blurs/fades into the background.
-     - Hero copy (headline, subheadline, CTAs) fades in earlier, around the middle of the scroll, since there is no console rising to wait for.
-   - Keep the full-bleed looping video, scroll cue, and CTAs.
+## Plan
 
-2. **`src/components/site/HeroDashboard.tsx`**
-   - Delete the file. After the removals above it is no longer imported anywhere.
+1. **Restack the hero section above ThinkSection**
+   - In `src/components/site/CinematicOpening.tsx`, change the outer `<section>` from `z-10` to `z-20`.
+   - Keep `ThinkSection` at `z-10` so it sits below the hero while the hero is active, then becomes the active layer once the hero scrolls away.
 
-## Result
+2. **Verify the reduced-motion fallback**
+   - In `StaticOpening`, the CTAs are already rendered after the film section, so no overlap exists there. No change needed unless the same z-index conflict appears in that path.
 
-The homepage opening becomes a simpler cinematic sequence: the founder film plays full-screen, scrolls scale/blur into the background, and the headline/CTAs settle in. No live console rises from below.
+3. **Test the scroll handoff**
+   - Scroll through the hero on desktop and mobile viewports.
+   - Confirm the CTAs remain visible and clickable until the cinematic section ends.
+   - Confirm ThinkSection content is not clipped or visually broken after the hero passes.
 
-## Verification
+## Files to change
+- `src/components/site/CinematicOpening.tsx` — raise hero section z-index.
 
-- Build the project to confirm no import errors.
-- Preview the homepage and scroll through the hero to confirm the film, fade, and copy timing feel smooth.
+## Validation
+- Build passes.
+- Preview shows CTAs clearly at the end of the hero scroll.
+- ThinkSection scrolls into view cleanly without covering the hero CTAs.
