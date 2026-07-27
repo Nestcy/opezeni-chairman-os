@@ -1,40 +1,24 @@
-## Goal
+## What's actually happening
 
-Turn the top of the home page into one continuous cinematic journey: full-bleed founder video → scroll-linked dissolve → live dashboard rises into place → hero copy fades in over it.
+I inspected the live preview. The video is there and *is* playing (readyState 4, not paused, currentTime advancing) — but you can't see it. Two separate causes:
 
-## What changes
+1. **The video is rendered at `opacity-0`.** `Film()` only fades the video in when its `onPlaying` event fires. In practice the element starts playing before React's listener is attached (it autoplays during hydration), so the event is missed, `ready` stays `false`, and the poster image sits on top forever. Confirmed: the live element's class list still contains `opacity-0` while the video plays underneath.
 
-**1. Use the uploaded film**
-- Upload `Founder_sipping_tea_at_cafe_202607270927.mp4` to the CDN as `src/assets/founder-cafe.mp4.asset.json`.
-- Generate a matching first-frame poster so there's no black flash before playback.
-- Video plays autoplay, muted, looped, `playsInline`, `object-cover`, full viewport. Nothing on top of it at scroll 0 — no headline, no caption, just a faint scroll cue at the bottom.
+2. **The preview reports `prefers-reduced-motion: reduce`.** In that branch the component renders `StaticOpening`, which is a poster image only — no video at all, no scroll choreography. So on any device/browser with reduced motion (including this preview environment), the hero is a literal static image by design.
 
-**2. Rebuild the opening as one scroll stage**
-Rewrite `CinematicOpening.tsx` into a single sticky stage (~250vh scroll track) that owns the whole sequence. The phone prop, pick-up beat, bezel and outro caption are removed.
+## The fix
 
-```text
-scroll 0.00 ──────────── video only, calm, untouched
-scroll 0.15 ──────────── scroll cue fades
-scroll 0.20–0.65 ─────── video scales 1.0 → 1.12, blur 0 → 18px,
-                         brightness dips, opacity 1 → 0.25 (never a hard cut)
-scroll 0.35–0.75 ─────── dashboard slides up from below (y 24vh → 0),
-                         scale 0.94 → 1, opacity 0 → 1
-scroll 0.70–0.90 ─────── headline / sub / CTAs fade + rise in above dashboard
-scroll 1.00 ──────────── dashboard locked in viewport, page releases to next section
-```
-All values via `useTransform` on a single scroll progress value (same rAF listener already in the file), so the two layers cross-dissolve with no gap.
+**A. Make the video reveal reliable (`src/components/site/CinematicOpening.tsx`)**
+- Stop depending solely on `onPlaying`. On mount, check `video.readyState >= 2` (or `HAVE_FUTURE_DATA`) and mark it ready immediately; also listen to `loadeddata` and `canplay`, not just `playing`.
+- Fail-safe: treat the video as ready once playback is attempted successfully, so the poster never becomes a permanent cover.
+- Keep the poster strictly as a fade-out underlay for the first frames.
 
-**3. Hero content moves inside the stage**
-- `HeroIntro.tsx` is removed from the page as a standalone top section; its copy (headline "Run your software company without running it.", sub "The autonomous operating system for SaaS founders.", CTAs **Experience Opezeni** + **Book Discovery Call**) is rendered inside the stage and fades in only once the dashboard is in place.
-- CTA targets stay as today (`#think` and `/book`).
+**B. Keep the film in reduced-motion mode**
+- Change `StaticOpening` to render the same looping muted video instead of the still poster, just without the scroll-linked scale/blur/parallax choreography. Reduced motion means "no aggressive movement", not "no ambient video" — a slow ocean loop is fine, and it keeps the intended atmosphere for everyone.
+- Optionally still fall back to the poster if the video errors or can't autoplay.
 
-**4. Real, interactive dashboard**
-The stage renders the actual `HeroDashboard` panel (not the simplified console mock), so it is live and explorable the moment it appears. `HeroDashboard` gets a small prop to drop its own entrance animation and outer section padding when it's rendered inside the stage. `index.tsx` no longer renders it separately.
+**C. Verify**
+- Re-inspect the live element to confirm `opacity-100`, playback advancing, and no console errors.
+- Screenshot the hero at scroll offsets 0 / mid / end to confirm the film → dashboard cross-dissolve still reads correctly.
 
-**5. Reduced motion / fallback**
-`prefers-reduced-motion`: static poster frame, then the dashboard and hero copy shown normally, no scroll choreography. Poster image also covers slow connections.
-
-## Technical notes
-- Files touched: `CinematicOpening.tsx` (rewrite), `HeroDashboard.tsx` (props for embedded mode), `routes/index.tsx` (remove `HeroIntro` + standalone `HeroDashboard`), `HeroIntro.tsx` deleted, new asset pointers.
-- Old `opening-scene.mp4` / `opening-poster.jpg` asset pointers are left in place unless you want them deleted.
-- Verify with typecheck plus Playwright screenshots at several scroll offsets to confirm no dead zones or double-render gaps.
+No changes to the dashboard, copy, CTAs, or the rest of the page.

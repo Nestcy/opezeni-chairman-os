@@ -139,56 +139,70 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
   );
 }
 
-function Film() {
+function Film({ className = "" }: { className?: string }) {
   const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    videoRef.current?.play().catch(() => undefined);
+    const v = videoRef.current;
+    if (!v) return;
+    const markReady = () => setReady(true);
+    // The element can already be playing before React attaches listeners.
+    if (v.readyState >= 2) markReady();
+    v.addEventListener("loadeddata", markReady);
+    v.addEventListener("canplay", markReady);
+    v.addEventListener("playing", markReady);
+    v.play().then(markReady).catch(() => undefined);
+    return () => {
+      v.removeEventListener("loadeddata", markReady);
+      v.removeEventListener("canplay", markReady);
+      v.removeEventListener("playing", markReady);
+    };
   }, []);
 
   return (
     <>
-      <img
-        src={poster.url}
-        alt="A founder sipping tea at an ocean-side cafe at golden hour"
-        width={1280}
-        height={720}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <video
-        ref={videoRef}
-        src={clip.url}
-        poster={poster.url}
-        muted
-        loop
-        playsInline
-        autoPlay
-        preload="auto"
-        onPlaying={() => setReady(true)}
-        aria-hidden
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
-          ready ? "opacity-100" : "opacity-0"
-        }`}
-      />
-    </>
-  );
-}
-
-/** Reduced-motion fallback: the still, then the console — no choreography. */
-function StaticOpening() {
-  return (
-    <>
-      <section className="relative z-10 h-[70vh] min-h-[480px] overflow-hidden">
+      {(!ready || failed) && (
         <img
           src={poster.url}
           alt="A founder sipping tea at an ocean-side cafe at golden hour"
           width={1280}
           height={720}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={`absolute inset-0 h-full w-full object-cover ${className}`}
         />
+      )}
+      {!failed && (
+        <video
+          ref={videoRef}
+          src={clip.url}
+          poster={poster.url}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="auto"
+          onError={() => setFailed(true)}
+          aria-hidden
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+            ready ? "opacity-100" : "opacity-0"
+          } ${className}`}
+        />
+      )}
+    </>
+  );
+}
+
+
+/** Reduced-motion fallback: the film still plays, but with no scroll choreography. */
+function StaticOpening() {
+  return (
+    <>
+      <section className="relative z-10 h-[70vh] min-h-[480px] overflow-hidden">
+        <Film />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
       </section>
+
       <section className="relative z-10 px-4 pt-10">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
