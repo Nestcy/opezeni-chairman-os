@@ -1,37 +1,39 @@
-## Goal
+## What already exists
 
-Replace the current About page with a founder page that answers one question: why Ernest Zimba is the right person to build Opezeni. Direct, technical, no hype, generous whitespace, dark theme matching the rest of the site.
+The site is built: hero dashboard, bottleneck/shift scroll narrative, company map, department simulations, operator→chairman, trust, architecture, About founder page, Cal.com booking. This plan adds the three missing pieces from the brief and tightens the copy.
 
-## Page structure
+## 1. Cinematic opening (new)
 
-**Hero + Section 1 — Why Opezeni exists**
-- Eyebrow, one large headline, then short paragraphs: self-taught AI/ML engineer in Lusaka, Zambia; started building agentic systems in 2026; Opezeni grew out of a startup stress-test agent; the question that reframed everything ("what happens to a SaaS founder's job once AI can decide, not just automate?"), leading into the mission.
-- Subtle duotone-treated portrait (your uploaded photo) at small size beside the intro, with a monospace caption line (name / role / location). Treated to read as engineered, not stock photography — muted, blue-tinted, soft border, no drop shadow.
+A scroll-driven film at the very top of the home page — it never blocks, never needs a skip button.
 
-**Section 2 — Operating principles**
-Three cards, numbered in mono, each with a bold headline and a short explanation:
-1. Automate last, not first.
-2. Validate before you build.
-3. Founders should design the future, not operate the present. (ties back to Opezeni)
+- Generate a golden-hour beach-café clip (founder relaxed, ocean, warm light, no laptop) as an AI video, uploaded to CDN so it doesn't bloat the repo. A generated still is used as the poster frame so the first paint is instant, and the clip is muted, autoplaying, and looping.
+- Overlaid on the film: a phone that lights up with an Opezeni notification stack — ROAS +18%, 46 conversations resolved, runway forecast updated, final interview scheduled — typed in one at a time.
+- Reduced-motion and slow-connection visitors get the still poster with the same notification stack, no video.
 
-**Section 3 — Track record**
-Vertical timeline with a thin connector line and three entries, stated plainly:
-- IBM Professional Certificates — Agentic AI, RAG, Deep Learning (Coursera)
-- LangGraph-based Startup Stress-Test Agent, FastAPI, human-in-the-loop workflows — built and deployed
-- CogniMerse and AethraSync — two prior AI startups, framed as learning cycles that produced the validation-first philosophy, not as failures
+## 2. The seamless transition into the dashboard
 
-**Section 4 — The long-term vision**
-Full-bleed closing panel, headline "I'm not building another AI tool.", then the on-prem-to-cloud analogy, assist vs operate, operator to chairman. Ends with the CTA line "Book a discovery call to explore whether Opezeni fits your company." linking to /book.
+- Scrolling scales and centers the phone until its screen fills the viewport; the film dims and desaturates behind it.
+- At full-bleed, the phone's screen content cross-dissolves into the live console — same corner radius, same border, so the phone chrome peels away rather than cutting.
+- The console then unsticks and becomes the normal hero section, with the headline "Run your software company without running it." and CTAs "Experience Opezeni" (jumps into the narrative) and "Book Discovery Call".
 
-## Design and motion
+## 3. Simulate My Company (new section on the home page)
 
-- Reuses existing tokens and primitives (`Reveal`, `TiltCard`, mono-label, glass) — no new colors.
-- One new lightweight SVG graphic: an abstract network/architecture motif behind the vision section (nodes converging on a single decision layer), static with a very slow opacity drift only.
-- Motion limited to fade-and-rise on scroll and the timeline line drawing in once. No parallax, no hover theatrics.
-- Existing generic `FinalCTA` block is dropped from this page since section 4 carries its own CTA.
+Placed after the department demos.
+
+- Three questions: monthly recurring revenue, team size, biggest operational bottleneck. Sliders and a choice grid, one question per step.
+- A reasoning sequence plays: mapping departments → finding bottlenecks → assigning AI agents → building operational model, each line resolving with a check.
+- Result: a personalized console — their MRR and headcount drive the numbers, their named bottleneck is the agent that gets highlighted first, with estimated hours per week reclaimed and a runway/revenue projection. Ends with the discovery-call CTA.
+- Everything runs in the browser from their inputs; no data is stored or sent anywhere.
+
+## 4. Continuity pass
+
+- Chapter copy checked against the brief ("Every decision flows through you." / "That's not a company. That's a bottleneck.").
+- Nav gets a link to the simulator; home-page metadata unchanged.
+- Ambient grid pauses behind the film so it doesn't compete with the footage.
 
 ## Technical notes
 
-- Rewrites `src/routes/about.tsx`; adds a small `src/components/site/FounderTimeline.tsx` and a network SVG component if the file gets long.
-- Portrait uploaded via `lovable-assets` and referenced through an `.asset.json` pointer, with duotone applied in CSS (no binary committed to the repo).
-- Route `head()` title/description updated to match the new positioning.
+- New: `CinematicOpening.tsx`, `SimulateCompany.tsx`, plus a small `useSequenceProgress` helper; `HeroDashboard` gains a `phase` prop so it can render inside the phone screen and full-size.
+- Video and poster go through `lovable-assets` (`.asset.json` pointers), never committed as binaries.
+- Transition uses one `useScroll` range on a tall sticky stage — same pattern as the existing Think section — so there's a single scroll authority and no jank.
+- Simulator state is local React; no backend, no new dependencies beyond what's installed.
