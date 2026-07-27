@@ -4,6 +4,7 @@ import { MagneticButton, Reveal, TiltCard } from "@/components/site/primitives";
 import { FounderTimeline } from "@/components/site/FounderTimeline";
 import { VisionNetwork } from "@/components/site/VisionNetwork";
 import portrait from "@/assets/ernest-zimba.jpg.asset.json";
+import { assetUrl } from "@/lib/asset";
 
 const TITLE = "Ernest Zimba — Why Opezeni exists";
 const DESC =
