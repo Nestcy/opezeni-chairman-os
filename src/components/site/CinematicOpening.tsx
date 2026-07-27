@@ -59,28 +59,22 @@ export function CinematicOpening() {
 }
 
 function Stage({ progress }: { progress: MotionValue<number> }) {
-  // the film: holds full strength through the scroll, releases only at the handoff
+  // the film stays alive while scrolling, then quietly recedes into the background
   const filmScale = useTransform(progress, [0, 0.85], [1, 1.06]);
-  const filmOpacity = useTransform(progress, [0.62, 0.85], [1, 0]);
-  const filmBlur = useTransform(progress, [0.6, 0.85], [0, 8]);
-  const filmBrightness = useTransform(progress, [0.6, 0.85], [1, 0.7]);
+  const filmOpacity = useTransform(progress, [0.55, 0.85], [1, 0]);
+  const filmBlur = useTransform(progress, [0.45, 0.85], [0, 12]);
+  const filmBrightness = useTransform(progress, [0.45, 0.85], [1, 0.55]);
   const filmFilter = useTransform(
     [filmBlur, filmBrightness] as MotionValue<number>[],
     ([b, br]: number[]) => `blur(${b}px) brightness(${br})`,
   );
-  const veil = useTransform(progress, [0.6, 0.88], [0, 1]);
+  const veil = useTransform(progress, [0.45, 0.85], [0, 1]);
 
-  const cueOpacity = useTransform(progress, [0, 0.08, 0.15], [1, 1, 0]);
+  const cueOpacity = useTransform(progress, [0, 0.08, 0.18], [1, 1, 0]);
 
-  // the console rises from below and locks into the viewport
-  const dashY = useTransform(progress, [0.55, 0.88], ["24vh", "0vh"]);
-  const dashScale = useTransform(progress, [0.55, 0.88], [0.94, 1]);
-  const dashOpacity = useTransform(progress, [0.6, 0.8], [0, 1]);
-
-  // hero copy only once we are inside the product
-  const copyOpacity = useTransform(progress, [0.85, 1], [0, 1]);
-  const copyY = useTransform(progress, [0.85, 1], [22, 0]);
-
+  // hero copy settles in as the film gives way
+  const copyOpacity = useTransform(progress, [0.35, 0.65], [0, 1]);
+  const copyY = useTransform(progress, [0.35, 0.65], [28, 0]);
 
   return (
     <div className="relative h-full w-full">
@@ -104,15 +98,12 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
         </motion.div>
       </motion.div>
 
-      {/* the operating system */}
+      {/* headline + ctas */}
       <motion.div
-        style={{ y: dashY, scale: dashScale, opacity: dashOpacity }}
-        className="absolute inset-0 flex flex-col justify-center px-4"
+        style={{ opacity: copyOpacity, y: copyY }}
+        className="absolute inset-0 flex flex-col items-center justify-center px-4"
       >
-        <motion.div
-          style={{ opacity: copyOpacity, y: copyY }}
-          className="mx-auto w-full max-w-3xl pb-5 text-center"
-        >
+        <div className="mx-auto w-full max-w-3xl text-center">
           <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
             Run your software company
             <br className="hidden sm:block" /> without running it.
@@ -131,9 +122,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
               Book Discovery Call
             </Link>
           </div>
-        </motion.div>
-
-        <HeroDashboard embedded />
+        </div>
       </motion.div>
     </div>
   );
