@@ -33,29 +33,67 @@ const CONSOLE_AGENTS = [
  * then a scroll-driven zoom that turns the phone screen into the live console.
  */
 export function CinematicOpening() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const progress = useMotionValue(0);
+  const [size, setSize] = useState({ w: 1280, h: 900 });
+
+  useEffect(() => {
+    if (reduced) return;
+    let raf = 0;
+    const measure = () => setSize({ w: window.innerWidth, h: window.innerHeight });
+    const update = () => {
+      raf = 0;
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const travel = Math.max(1, rect.height - window.innerHeight);
+      progress.set(Math.min(1, Math.max(0, -rect.top / travel)));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    measure();
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => {
+      measure();
+      onScroll();
+    });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [progress, reduced]);
 
   if (reduced) return <StaticOpening />;
 
   return (
     <section ref={ref} className="relative z-10 h-[300vh]" aria-label="Opezeni opening sequence">
       <div className="sticky top-0 h-screen overflow-hidden">
-        <Stage progress={scrollYProgress} />
+        <Stage progress={progress} viewport={size} />
       </div>
     </section>
   );
 }
 
-function Stage({ progress }: { progress: MotionValue<number> }) {
+function Stage({
+  progress,
+  viewport,
+}: {
+  progress: MotionValue<number>;
+  viewport: { w: number; h: number };
+}) {
   const filmOpacity = useTransform(progress, [0, 0.45, 0.68], [1, 0.85, 0]);
   const filmScale = useTransform(progress, [0, 0.7], [1.06, 1.22]);
   const filmSaturate = useTransform(progress, [0.3, 0.65], [1, 0.2]);
   const filmFilter = useTransform(filmSaturate, (s) => `saturate(${s}) brightness(${0.35 + s * 0.5})`);
 
-  const phoneWidth = useTransform(progress, [0.3, 0.72], ["248px", "min(1100px, 94vw)"]);
-  const phoneHeight = useTransform(progress, [0.3, 0.72], ["510px", "min(660px, 78vh)"]);
+  const wideW = Math.min(1100, viewport.w * 0.94);
+  const wideH = Math.min(660, viewport.h * 0.78);
+  const smallH = Math.min(510, viewport.h * 0.62);
+  const phoneWidth = useTransform(progress, [0.3, 0.72], [248, wideW]);
+  const phoneHeight = useTransform(progress, [0.3, 0.72], [smallH, wideH]);
   const bezel = useTransform(progress, [0.42, 0.6], [1, 0]);
   const bezelPad = useTransform(bezel, (b) => `${b * 10}px`);
   const notifOpacity = useTransform(progress, [0.3, 0.42], [1, 0]);
