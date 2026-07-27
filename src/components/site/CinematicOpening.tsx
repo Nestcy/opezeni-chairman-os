@@ -100,6 +100,11 @@ function Stage({
   const smallH = Math.min(510, viewport.h * 0.62);
   const phoneWidth = useTransform(progress, [0.3, 0.72], [248, wideW]);
   const phoneHeight = useTransform(progress, [0.3, 0.72], [smallH, wideH]);
+  // pick-up beat: the phone lies low and tilted on the table, then lifts and squares up
+  const phoneY = useTransform(progress, [0, 0.14, 0.3], [110, 96, 0]);
+  const phoneRotate = useTransform(progress, [0, 0.14, 0.3], [-9, -8, 0]);
+  const phoneRotateX = useTransform(progress, [0, 0.14, 0.3], [26, 22, 0]);
+  const phoneScale = useTransform(progress, [0, 0.14, 0.3], [0.9, 0.94, 1]);
   const bezel = useTransform(progress, [0.42, 0.6], [1, 0]);
   const bezelPad = useTransform(bezel, (b) => `${b * 10}px`);
   const notifOpacity = useTransform(progress, [0.3, 0.42], [1, 0]);
@@ -128,9 +133,20 @@ function Stage({
       </motion.div>
 
       {/* phone → console */}
-      <div className="absolute inset-0 flex items-center justify-center px-4">
+      <div
+        className="absolute inset-0 flex items-center justify-center px-4"
+        style={{ perspective: 1400 }}
+      >
         <motion.div
-          style={{ width: phoneWidth, height: phoneHeight, padding: bezelPad }}
+          style={{
+            width: phoneWidth,
+            height: phoneHeight,
+            padding: bezelPad,
+            y: phoneY,
+            rotate: phoneRotate,
+            rotateX: phoneRotateX,
+            scale: phoneScale,
+          }}
           className="relative rounded-[2.2rem] bg-[#0b0e13] shadow-[0_60px_160px_-40px_rgba(0,0,0,1)]"
         >
           <motion.div
