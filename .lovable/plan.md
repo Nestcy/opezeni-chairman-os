@@ -1,52 +1,40 @@
 ## Goal
 
-Swap Opezeni's cold blue/green "AI startup" identity for a warm, timeless palette (charcoal, cream, terracotta, sand). No changes to information architecture, copy, layout, or user flow — purely visual identity and motion register.
+Turn the top of the home page into one continuous cinematic journey: full-bleed founder video → scroll-linked dissolve → live dashboard rises into place → hero copy fades in over it.
 
-## 1. Token layer (`src/styles.css`)
+## What changes
 
-Rewrite the color tokens (still dark-only) to the specified palette, converted to OKLCH:
+**1. Use the uploaded film**
+- Upload `Founder_sipping_tea_at_cafe_202607270927.mp4` to the CDN as `src/assets/founder-cafe.mp4.asset.json`.
+- Generate a matching first-frame poster so there's no black flash before playback.
+- Video plays autoplay, muted, looped, `playsInline`, `object-cover`, full viewport. Nothing on top of it at scroll 0 — no headline, no caption, just a faint scroll cue at the bottom.
 
-- background `#111111`, surface `#1A1A1A`, card slightly lifted charcoal
-- foreground cream `#F7F3EC`, muted-foreground warm gray `#B8B0A4`
-- primary terracotta `#C76B45`, hover/active deep terracotta `#A95636` (new `--primary-hover`)
-- border/divider: soft sand `#DCCFC2` at ~10–12% opacity
-- success muted sage `#708C69`, warning burnt amber `#C8923B`, danger a muted brick (not neon red)
-- chart tokens: terracotta, sand, amber, sage, warm gray — no blues
-- new `--gradient-warm` (terracotta → warm sand) and `--gradient-charcoal` (charcoal → deep terracotta)
+**2. Rebuild the opening as one scroll stage**
+Rewrite `CinematicOpening.tsx` into a single sticky stage (~250vh scroll track) that owns the whole sequence. The phone prop, pick-up beat, bezel and outro caption are removed.
 
-Utility changes:
-- `glow-accent` → replaced by `elevate-warm`: a soft shadow + hairline sand border instead of a neon halo. Keep the old class name aliased so no component breaks, but with the calm shadow values.
-- Keep `glass` but lower the saturation boost and warm the tint.
+```text
+scroll 0.00 ──────────── video only, calm, untouched
+scroll 0.15 ──────────── scroll cue fades
+scroll 0.20–0.65 ─────── video scales 1.0 → 1.12, blur 0 → 18px,
+                         brightness dips, opacity 1 → 0.25 (never a hard cut)
+scroll 0.35–0.75 ─────── dashboard slides up from below (y 24vh → 0),
+                         scale 0.94 → 1, opacity 0 → 1
+scroll 0.70–0.90 ─────── headline / sub / CTAs fade + rise in above dashboard
+scroll 1.00 ──────────── dashboard locked in viewport, page releases to next section
+```
+All values via `useTransform` on a single scroll progress value (same rAF listener already in the file), so the two layers cross-dissolve with no gap.
 
-Typography stays Space Grotesk / Inter / JetBrains Mono; increase heading letter-spacing slightly and lean on generous whitespace already present.
+**3. Hero content moves inside the stage**
+- `HeroIntro.tsx` is removed from the page as a standalone top section; its copy (headline "Run your software company without running it.", sub "The autonomous operating system for SaaS founders.", CTAs **Experience Opezeni** + **Book Discovery Call**) is rendered inside the stage and fades in only once the dashboard is in place.
+- CTA targets stay as today (`#think` and `/book`).
 
-## 2. Hardcoded color cleanup
+**4. Real, interactive dashboard**
+The stage renders the actual `HeroDashboard` panel (not the simplified console mock), so it is live and explorable the moment it appears. `HeroDashboard` gets a small prop to drop its own entrance animation and outer section padding when it's rendered inside the stage. `index.tsx` no longer renders it separately.
 
-Files that hardcode `#3B82F6` / `rgba(59,130,246,…)` get switched to warm tokens:
-
-- `Logo.tsx` — terracotta core, sand outer nodes, gradient fill on the inner ring (gradient reserved use).
-- `AmbientBackground.tsx` — grid lines and node links in warm sand at low alpha; top radial wash becomes a very soft terracotta, notably dimmer than today.
-- `HeroDashboard.tsx` — sparkline stroke/gradient to terracotta→transparent; delta text to sage.
-- `CompanyMap.tsx` — connection strokes and active node in terracotta at reduced alpha; replace the pulsing boxShadow loop with a single static soft elevation plus a hover transition.
-- `Architecture.tsx` — remove the infinite glow pulse; use a gentle opacity breathe or static elevation.
-- `Simulations.tsx`, `SimulateCompany.tsx`, `OperatorChairman.tsx`, `ThinkSection.tsx`, `CinematicOpening.tsx` — status colors already reference `var(--success)` / `var(--danger)`, so they inherit the new palette; audit each for any remaining cool accents.
-
-## 3. Buttons
-
-Introduce two shared classes used consistently across `HeroIntro`, `Navbar`, `FinalCTA`, `about`, `SimulateCompany`, `book`:
-
-- Primary: terracotta background (subtle terracotta→deep-terracotta gradient on hover), cream text, rounded-xl, soft elevation, 200ms ease transition, no glow.
-- Secondary: transparent, cream hairline border, cream text, background lifts to 4% cream on hover.
-
-## 4. Motion pass
-
-- Remove or slow all infinite pulse loops (StatusDot ring, map/architecture glows) — StatusDot keeps a slow 3.5s low-opacity ripple in sage rather than a fast bright pulse.
-- Lengthen reveal/scale durations slightly and soften easing; keep scroll choreography of `CinematicOpening` and `ThinkSection` intact.
-
-## 5. Verify
-
-Type-check, then Playwright screenshots of `/`, `/product`, `/architecture`, `/about`, `/book` (plus a mid-scroll capture of the cinematic sequence) to confirm every screen reads as one warm system with no leftover blue.
+**5. Reduced motion / fallback**
+`prefers-reduced-motion`: static poster frame, then the dashboard and hero copy shown normally, no scroll choreography. Poster image also covers slow connections.
 
 ## Technical notes
-
-All colors stay as semantic tokens in `src/styles.css`; components reference tokens, never raw hex, except inside SVG/canvas where a literal is unavoidable — those read from a small exported palette constant so there's one source of truth.
+- Files touched: `CinematicOpening.tsx` (rewrite), `HeroDashboard.tsx` (props for embedded mode), `routes/index.tsx` (remove `HeroIntro` + standalone `HeroDashboard`), `HeroIntro.tsx` deleted, new asset pointers.
+- Old `opening-scene.mp4` / `opening-poster.jpg` asset pointers are left in place unless you want them deleted.
+- Verify with typecheck plus Playwright screenshots at several scroll offsets to confirm no dead zones or double-render gaps.
