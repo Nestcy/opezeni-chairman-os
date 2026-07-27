@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 
 const links = [
-  { to: "/", hash: "simulate", label: "Simulate" },
   { to: "/product", label: "Product" },
   { to: "/architecture", label: "Architecture" },
   { to: "/about", label: "About" },
@@ -42,7 +41,6 @@ export function Navbar() {
             <Link
               key={l.label}
               to={l.to}
-              hash={"hash" in l ? l.hash : undefined}
               className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
@@ -81,7 +79,6 @@ export function Navbar() {
             <Link
               key={l.label}
               to={l.to}
-              hash={"hash" in l ? l.hash : undefined}
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
             >
