@@ -199,7 +199,6 @@ export function Simulations({
     <section id="simulations" className="relative z-10 px-4 py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow="Interactive demos"
           title="Watch each agent make a decision."
           subtitle="No videos. Every simulation below is running live in your browser — roughly twenty seconds each."
         />
