@@ -7,6 +7,7 @@ import { Simulations } from "@/components/site/Simulations";
 import { OperatorChairman } from "@/components/site/OperatorChairman";
 import { Trust } from "@/components/site/Trust";
 import { Architecture } from "@/components/site/Architecture";
+import { DiscoveryProcess } from "@/components/site/DiscoveryProcess";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import type { DeptId } from "@/lib/opezeni";
 
