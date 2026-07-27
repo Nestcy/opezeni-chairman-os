@@ -1,24 +1,24 @@
-## What's actually happening
+## Goal
 
-I inspected the live preview. The video is there and *is* playing (readyState 4, not paused, currentTime advancing) — but you can't see it. Two separate causes:
+The film should stay fully visible and sharp for most of the scroll, and only give way at the very end — right as the console locks into the viewport.
 
-1. **The video is rendered at `opacity-0`.** `Film()` only fades the video in when its `onPlaying` event fires. In practice the element starts playing before React's listener is attached (it autoplays during hydration), so the event is missed, `ready` stays `false`, and the poster image sits on top forever. Confirmed: the live element's class list still contains `opacity-0` while the video plays underneath.
+## Current behaviour (src/components/site/CinematicOpening.tsx, Stage)
 
-2. **The preview reports `prefers-reduced-motion: reduce`.** In that branch the component renders `StaticOpening`, which is a poster image only — no video at all, no scroll choreography. So on any device/browser with reduced motion (including this preview environment), the hero is a literal static image by design.
+The film starts degrading at 20% scroll progress and is nearly gone by 65%: opacity 1 → 0.25, blur 0 → 18px, brightness 1 → 0.45, plus a background veil ramping 0 → 0.75 from 25%. The console only finishes arriving at 75%. So the film disappears long before the console gets there — that early fade is what reads wrong.
 
-## The fix
+## Change
 
-**A. Make the video reveal reliable (`src/components/site/CinematicOpening.tsx`)**
-- Stop depending solely on `onPlaying`. On mount, check `video.readyState >= 2` (or `HAVE_FUTURE_DATA`) and mark it ready immediately; also listen to `loadeddata` and `canplay`, not just `playing`.
-- Fail-safe: treat the video as ready once playback is attempted successfully, so the poster never becomes a permanent cover.
-- Keep the poster strictly as a fade-out underlay for the first frames.
+Retime the film so it holds, then releases late:
 
-**B. Keep the film in reduced-motion mode**
-- Change `StaticOpening` to render the same looping muted video instead of the still poster, just without the scroll-linked scale/blur/parallax choreography. Reduced motion means "no aggressive movement", not "no ambient video" — a slow ocean loop is fine, and it keeps the intended atmosphere for everyone.
-- Optionally still fall back to the poster if the video errors or can't autoplay.
+- **Opacity**: hold at 1 until ~0.62, then 1 → 0 across 0.62 → 0.85 (finishing exactly as the console settles).
+- **Blur / brightness**: keep the film sharp until ~0.6; only a light softening (blur 0 → 8px, brightness 1 → 0.7) over 0.6 → 0.85, so it's a recede rather than a smear.
+- **Scale**: slow, continuous swell across the whole track (1 → 1.06 over 0 → 0.85) so there's always a sense of motion while it stays visible.
+- **Veil**: start it at 0.6 instead of 0.25 and ramp to 1 by 0.88, so the background takes over only at the handoff.
+- **Console**: bring `dashOpacity` in slightly later (0.6 → 0.8) so it doesn't cross-fade on top of a fully visible film; keep `dashY`/`dashScale` roughly as-is (0.55 → 0.88) so the rise and the film's exit resolve together.
+- **Hero copy**: nudge to 0.85 → 1.0 so it lands after the console is settled.
 
-**C. Verify**
-- Re-inspect the live element to confirm `opacity-100`, playback advancing, and no console errors.
-- Screenshot the hero at scroll offsets 0 / mid / end to confirm the film → dashboard cross-dissolve still reads correctly.
+Net effect: scroll and the film stays live and full-strength, subtly growing; only in the last third does it soften and dissolve as the console rises into place. No hard cut, no early fade.
 
-No changes to the dashboard, copy, CTAs, or the rest of the page.
+## Verify
+
+Screenshot the hero at scroll offsets ~0, 40%, 60%, 80%, 100% to confirm the film is still fully visible at 40–60% and cleanly handed off by 100%, and re-check the live preview for the video playing and no console errors.
