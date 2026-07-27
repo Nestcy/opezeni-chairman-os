@@ -42,46 +42,13 @@ export function HeroDashboard() {
   }, []);
 
   return (
-    <section className="relative z-10 px-4 pt-32 pb-20 sm:pt-36">
+    <section className="relative z-10 px-4 pt-6 pb-20">
       <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <span className="mono-label inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5">
-            <Sparkles className="h-3 w-3 text-primary" />
-            Autonomous company OS
-          </span>
-          <h1 className="mt-6 text-4xl leading-[1.05] font-semibold text-balance-tight sm:text-6xl">
-            Run your software company
-            <br className="hidden sm:block" /> without running it.
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            The autonomous operating system for SaaS founders.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a href="#think">
-              <MagneticButton className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground glow-accent">
-                Experience Opezeni
-                <ArrowRight className="h-4 w-4" />
-              </MagneticButton>
-            </a>
-            <Link
-              to="/book"
-              className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-white/5"
-            >
-              Book Discovery Call
-            </Link>
-          </div>
-        </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.985 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="glass mt-14 rounded-3xl p-3 shadow-[0_40px_120px_-40px_rgba(0,0,0,1)] sm:p-4"
+          className="glass rounded-3xl p-3 shadow-[0_40px_120px_-40px_rgba(0,0,0,1)] sm:p-4"
         >
           <div className="flex items-center justify-between px-2 pb-3">
             <div className="flex items-center gap-2">
