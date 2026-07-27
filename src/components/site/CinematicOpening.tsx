@@ -265,6 +265,29 @@ function ConsoleScreen() {
           </div>
         ))}
       </div>
+
+      <div className="mt-3 flex-1 overflow-hidden rounded-xl border border-border bg-card/50 p-3">
+        <p className="mono-label">Decision log</p>
+        <ul className="mt-2 space-y-1.5">
+          {NOTIFICATIONS.map((n) => (
+            <li
+              key={n.text}
+              className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground"
+            >
+              <n.icon className="h-3 w-3 shrink-0 text-primary" aria-hidden />
+              <span className="truncate">{n.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-3 flex items-center gap-2">
+        <StatusDot tone="success" />
+        <span className="font-mono text-[10px] text-muted-foreground">
+          6 agents operating · 0 waiting on you
+        </span>
+      </div>
+
     </div>
   );
 }
