@@ -138,7 +138,14 @@ function Stage({
       {/* phone → console */}
       <div className="absolute inset-0 flex items-center justify-center px-4">
         <motion.div
-          style={{ width: phoneWidth, height: phoneHeight, padding: bezelPad }}
+          style={{
+            width: phoneWidth,
+            height: phoneHeight,
+            padding: bezelPad,
+            y: phoneY,
+            rotate: phoneRotate,
+            transform: phonePerspective,
+          }}
           className="relative rounded-[2.2rem] bg-[#0b0e13] shadow-[0_60px_160px_-40px_rgba(0,0,0,1)]"
         >
           <motion.div
