@@ -110,7 +110,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
       >
         You are now inside Opezeni
       </motion.p>
-    </motion.div>
+    </div>
   );
 }
 
