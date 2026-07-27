@@ -28,7 +28,7 @@ export function ThinkSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
   return (
-    <section id="think" ref={ref} className="relative z-10 h-[320vh]">
+    <section id="think" ref={ref} className="relative z-10 h-[280vh]">
       <div className="sticky top-0 flex h-screen items-center px-4">
         <div className="mx-auto w-full max-w-5xl">
           <Stage progress={scrollYProgress} />
