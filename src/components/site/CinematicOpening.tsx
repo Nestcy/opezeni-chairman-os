@@ -4,13 +4,11 @@ import {
   useMotionValue,
   useReducedMotion,
   useTransform,
-  type MotionValue,
-} from "framer-motion";
+} from "frframer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import poster from "@/assets/founder-cafe-poster.jpg.asset.json";
 import clip from "@/assets/founder-cafe.mp4.asset.json";
-import { HeroDashboard } from "./HeroDashboard";
 import { MagneticButton } from "./primitives";
 
 /**
