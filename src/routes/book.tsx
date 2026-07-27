@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import Cal from "@calcom/embed-react";
 import { CalendarDays, Clock, Video } from "lucide-react";
 import { Reveal } from "@/components/site/primitives";
+import { DiscoveryProcess } from "@/components/site/DiscoveryProcess";
 
 const TITLE = "Book a discovery call — Opezeni";
 const DESC =
