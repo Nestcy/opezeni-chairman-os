@@ -50,6 +50,19 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
   const edgeColor = useTransform(green, (g) =>
     g > 0.5 ? "rgba(34,197,94,0.55)" : "rgba(239,68,68,0.45)",
   );
+  const statusColor = useTransform(green, (g) =>
+    g > 0.5 ? "var(--success)" : "var(--muted-foreground)",
+  );
+  const waitingOpacity = useTransform(green, [0, 1], [1, 0]);
+  const orchestratorScale = useTransform(orchestratorIn, [0, 1], [0.7, 1]);
+  const founderBorder = useTransform(founderGlow, (g) =>
+    g > 0.4 ? "rgba(239,68,68,0.6)" : "rgba(255,255,255,0.08)",
+  );
+  const founderShadow = useTransform(
+    founderGlow,
+    (g) => `0 0 ${g * 46}px -6px rgba(239,68,68,${g * 0.8})`,
+  );
+
 
   return (
     <div className="glass relative overflow-hidden rounded-3xl p-5 sm:p-8">
