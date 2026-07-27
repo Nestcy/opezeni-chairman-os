@@ -6,7 +6,7 @@ export function FinalCTA() {
   return (
     <section className="relative z-10 px-4 py-32">
       <Reveal className="glass mx-auto max-w-4xl rounded-3xl px-6 py-20 text-center sm:px-12">
-        <p className="mono-label">The transition</p>
+        
         <h2 className="mt-4 text-4xl font-semibold text-balance-tight sm:text-5xl">
           Ready to stop operating your company?
         </h2>
