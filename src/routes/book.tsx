@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Cal from "@calcom/embed-react";
 import { CalendarDays, Clock, Video } from "lucide-react";
 import { Reveal } from "@/components/site/primitives";
 
@@ -47,20 +48,20 @@ function BookPage() {
           </ul>
         </Reveal>
 
-        <Reveal delay={0.1} className="glass rounded-3xl p-2">
-          <div className="flex min-h-[520px] flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-surface/50 p-8 text-center">
-            <CalendarDays className="h-6 w-6 text-primary" aria-hidden />
-            <h2 className="mt-4 font-display text-lg font-semibold">Scheduling</h2>
-            <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-              The live calendar embed drops in here. Until then, reach out directly and we'll send
-              times.
-            </p>
-            <a
-              href="mailto:hello@opezeni.com?subject=Opezeni%20discovery%20call"
-              className="mt-6 inline-flex items-center rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-shadow hover:glow-accent"
-            >
-              Request times
-            </a>
+        <Reveal delay={0.1} className="glass overflow-hidden rounded-3xl p-2">
+          <div className="relative min-h-[580px] overflow-hidden rounded-2xl bg-surface/50">
+            <Cal
+              calLink="ernest-ho5gwm/problem-discovery-interview"
+              config={{
+                layout: "month_view",
+                theme: "dark",
+              }}
+              style={{
+                width: "100%",
+                height: "100%",
+                minHeight: "580px",
+              }}
+            />
           </div>
         </Reveal>
       </div>
