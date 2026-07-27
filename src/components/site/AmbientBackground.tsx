@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import { RGBA } from "@/lib/palette";
+
 
 type Node = { x: number; y: number; vx: number; vy: number; r: number };
 
@@ -62,7 +64,8 @@ export function AmbientBackground() {
           const b = nodes[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < 190) {
-            ctx.strokeStyle = `rgba(59,130,246,${(1 - d / 190) * 0.13})`;
+            ctx.strokeStyle = RGBA.sand((1 - d / 190) * 0.1);
+
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -73,10 +76,11 @@ export function AmbientBackground() {
       }
 
       for (const n of nodes) {
-        const pulse = reduced ? 0.4 : 0.32 + Math.sin(frame / 90 + n.x / 220) * 0.16;
-        ctx.fillStyle = `rgba(155,163,175,${pulse * 0.55})`;
+        const pulse = reduced ? 0.4 : 0.32 + Math.sin(frame / 120 + n.x / 220) * 0.12;
+        ctx.fillStyle = RGBA.warmGray(pulse * 0.5);
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+
         ctx.fill();
       }
 
@@ -106,11 +110,11 @@ export function AmbientBackground() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div
-        className="absolute inset-0 opacity-[0.55]"
+        className="absolute inset-0 opacity-[0.5]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+            "linear-gradient(rgba(220,207,194,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(220,207,194,0.03) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
           maskImage: "radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%)",
         }}
       />
@@ -119,9 +123,10 @@ export function AmbientBackground() {
         className="absolute inset-x-0 top-0 h-[60vh]"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% -10%, rgba(59,130,246,0.16), transparent 70%)",
+            "radial-gradient(ellipse 65% 55% at 50% -12%, rgba(199,107,69,0.10), transparent 72%)",
         }}
       />
+
     </div>
   );
 }

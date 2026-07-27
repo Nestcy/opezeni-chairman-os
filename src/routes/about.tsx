@@ -181,7 +181,7 @@ function AboutPage() {
 
             <div className="mt-10">
               <Link to="/book">
-                <MagneticButton className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground glow-accent">
+                <MagneticButton className="btn-primary px-6 py-3.5 text-sm">
                   Book a discovery call
                   <ArrowRight className="h-4 w-4" />
                 </MagneticButton>

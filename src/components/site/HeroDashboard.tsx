@@ -3,6 +3,8 @@ import { Activity } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { DEPARTMENTS } from "@/lib/opezeni";
+import { PALETTE } from "@/lib/palette";
+
 import { CountUp, StatusDot } from "./primitives";
 
 const AGENTS = DEPARTMENTS.filter((d) => d.id !== "founder" && d.id !== "sales");
@@ -82,19 +84,28 @@ export function HeroDashboard() {
                         <AreaChart data={charts[i]}>
                           <defs>
                             <linearGradient id={`g${i}`} x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.45} />
-                              <stop offset="100%" stopColor="#3B82F6" stopOpacity={0} />
+                              <stop
+                                offset="0%"
+                                stopColor={PALETTE.terracotta}
+                                stopOpacity={0.35}
+                              />
+                              <stop
+                                offset="100%"
+                                stopColor={PALETTE.terracotta}
+                                stopOpacity={0}
+                              />
                             </linearGradient>
                           </defs>
                           <Area
                             type="monotone"
                             dataKey="v"
-                            stroke="#3B82F6"
+                            stroke={PALETTE.terracotta}
                             strokeWidth={1.5}
                             fill={`url(#g${i})`}
                             isAnimationActive
-                            animationDuration={1600}
+                            animationDuration={2000}
                           />
+
                         </AreaChart>
                       </ResponsiveContainer>
                     </div>

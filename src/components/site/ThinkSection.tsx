@@ -48,7 +48,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
   const act1Text = useTransform(progress, [0.22, 0.34, 0.5, 0.56], [0, 1, 1, 0]);
   const act2Text = useTransform(progress, [0.8, 0.9], [0, 1]);
   const edgeColor = useTransform(green, (g) =>
-    g > 0.5 ? "rgba(34,197,94,0.55)" : "rgba(239,68,68,0.45)",
+    g > 0.5 ? "rgba(112,140,105,0.55)" : "rgba(199,86,54,0.4)",
   );
   const statusColor = useTransform(green, (g) =>
     g > 0.5 ? "var(--success)" : "var(--muted-foreground)",
@@ -56,11 +56,11 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
   const waitingOpacity = useTransform(green, [0, 1], [1, 0]);
   const orchestratorScale = useTransform(orchestratorIn, [0, 1], [0.7, 1]);
   const founderBorder = useTransform(founderGlow, (g) =>
-    g > 0.4 ? "rgba(239,68,68,0.6)" : "rgba(255,255,255,0.08)",
+    g > 0.4 ? "rgba(199,86,54,0.55)" : "rgba(220,207,194,0.08)",
   );
   const founderShadow = useTransform(
     founderGlow,
-    (g) => `0 0 ${g * 46}px -6px rgba(239,68,68,${g * 0.8})`,
+    (g) => `0 0 ${g * 46}px -6px rgba(199,86,54,${g * 0.55})`,
   );
 
 
@@ -116,7 +116,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
             style={{ opacity: orchestratorIn, scale: orchestratorScale }}
             className="absolute top-1/2 left-[62%] -translate-x-1/2 -translate-y-1/2"
           >
-            <div className="flex flex-col items-center gap-2 rounded-2xl border border-[color:var(--success)]/40 bg-card px-4 py-3 shadow-[0_0_40px_-8px_rgba(34,197,94,0.5)]">
+            <div className="flex flex-col items-center gap-2 rounded-2xl border border-[color:var(--success)]/40 bg-card px-4 py-3 shadow-[0_10px_34px_-14px_rgba(0,0,0,0.8)]">
               <Logo className="h-6 w-6" />
               <span className="font-display text-xs font-semibold">Opezeni</span>
             </div>

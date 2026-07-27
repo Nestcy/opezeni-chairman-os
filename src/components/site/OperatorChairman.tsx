@@ -51,7 +51,7 @@ export function OperatorChairman() {
                 </motion.div>
               ))}
             </div>
-            <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-white/8">
+            <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-foreground/8">
               <motion.div
                 className="h-full bg-[color:var(--danger)]"
                 initial={{ width: "8%" }}
@@ -89,7 +89,7 @@ export function OperatorChairman() {
                 </motion.div>
               ))}
             </div>
-            <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-white/8">
+            <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-foreground/8">
               <motion.div
                 className="h-full bg-[color:var(--success)]"
                 initial={{ width: "90%" }}

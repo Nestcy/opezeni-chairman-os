@@ -27,19 +27,16 @@ export function Architecture({ compact = false }: { compact?: boolean }) {
 
             {/* orchestrator */}
             <motion.div
-              animate={{
-                boxShadow: [
-                  "0 0 28px -8px rgba(59,130,246,0.65)",
-                  "0 0 54px -8px rgba(59,130,246,0.35)",
-                  "0 0 28px -8px rgba(59,130,246,0.65)",
-                ],
-              }}
-              transition={{ duration: 4.5, repeat: Infinity }}
-              className="flex items-center gap-2.5 rounded-2xl border border-primary/40 bg-card px-6 py-4"
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="elevate-warm flex items-center gap-2.5 rounded-2xl border border-primary/35 bg-card px-6 py-4"
             >
               <Logo className="h-6 w-6" />
               <span className="font-display text-sm font-semibold">Opezeni Orchestrator</span>
             </motion.div>
+
             <Flow />
 
             {/* agents */}
@@ -91,7 +88,7 @@ export function Architecture({ compact = false }: { compact?: boolean }) {
 
 function Flow() {
   return (
-    <div className="relative my-6 h-12 w-px overflow-hidden bg-white/10" aria-hidden>
+    <div className="relative my-6 h-12 w-px overflow-hidden bg-foreground/10" aria-hidden>
       <motion.span
         className="absolute left-1/2 h-3 w-px -translate-x-1/2 bg-primary"
         animate={{ y: [-12, 48] }}

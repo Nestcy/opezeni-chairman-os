@@ -91,7 +91,7 @@ export function SimulateCompany() {
                     setPhase("questions");
                     setStep(0);
                   }}
-                  className="mt-7 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground glow-accent"
+                  className="mt-7 btn-primary px-6 py-3.5 text-sm"
                 >
                   Simulate My Company
                   <ArrowRight className="h-4 w-4" />
@@ -192,7 +192,7 @@ export function SimulateCompany() {
                   <button
                     type="button"
                     onClick={() => (step === 2 ? setPhase("thinking") : setStep((s) => s + 1))}
-                    className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-shadow hover:glow-accent"
+                    className="btn-primary px-5 py-3 text-sm"
                   >
                     {step === 2 ? "Build my operating model" : "Continue"}
                     <ArrowRight className="h-4 w-4" />
@@ -311,7 +311,7 @@ export function SimulateCompany() {
                     your real numbers.
                   </p>
                   <Link to="/book">
-                    <MagneticButton className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground glow-accent">
+                    <MagneticButton className="btn-primary px-6 py-3.5 text-sm">
                       Book Discovery Call
                       <ArrowRight className="h-4 w-4" />
                     </MagneticButton>
