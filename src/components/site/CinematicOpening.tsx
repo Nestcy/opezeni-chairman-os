@@ -164,8 +164,8 @@ function Film({ className = "" }: { className?: string }) {
       {!failed && (
         <video
           ref={videoRef}
-          src={clip.url}
-          poster={poster.url}
+          src={assetUrl(clip)}
+          poster={assetUrl(poster)}
           muted
           loop
           playsInline
