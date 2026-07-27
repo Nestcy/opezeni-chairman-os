@@ -42,6 +42,7 @@ function Index() {
       <HeroIntro />
       <CinematicOpening />
       <HeroDashboard />
+      <ThinkSection />
       <CompanyMap onOpenDemo={openDemo} />
       <Simulations active={dept} onChange={setDept} />
       <SimulateCompany />
