@@ -53,7 +53,7 @@ function BookPage() {
             <Cal
               calLink="ernest-ho5gwm/problem-discovery-interview"
               config={{
-                layout: "monthly_view",
+                layout: "month_view",
                 theme: "dark",
               }}
               style={{
