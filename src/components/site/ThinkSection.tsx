@@ -41,7 +41,7 @@ export function ThinkSection() {
 function Stage({ progress }: { progress: MotionValue<number> }) {
   // act 1: 0 → 0.45 (bottleneck)   act 2: 0.55 → 1 (transformation)
   const founderGlow = useTransform(progress, [0.05, 0.4, 0.6], [0, 1, 0]);
-  const founderY = useTransform(progress, [0.55, 0.78], [0, -110]);
+  const founderY = useTransform(progress, [0.55, 0.78], [0, -140]);
   const orchestratorIn = useTransform(progress, [0.6, 0.8], [0, 1]);
   const green = useTransform(progress, [0.62, 0.85], [0, 1]);
   const queueOpacity = useTransform(progress, [0.1, 0.35, 0.6, 0.72], [0, 1, 1, 0]);
