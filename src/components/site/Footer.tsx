@@ -8,7 +8,7 @@ export function Footer() {
         <div className="max-w-xs">
           <div className="flex items-center gap-2.5">
             <Logo className="h-6 w-6" />
-            <span className="font-display text-[15px] font-semibold">Opezeni</span>
+            <span className="font-display text-base font-semibold">Opezeni</span>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The autonomous operating system for SaaS founders. Operator to Chairman.

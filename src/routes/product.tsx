@@ -31,7 +31,7 @@ function ProductPage() {
         <div className="mx-auto max-w-6xl">
           <Reveal className="max-w-3xl">
             <p className="mono-label">Product</p>
-            <h1 className="mt-4 text-4xl leading-tight font-semibold text-balance-tight sm:text-5xl">
+            <h1 className="mt-4 text-hero leading-tight font-semibold text-balance-tight">
               Not automations. Operators that decide.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">

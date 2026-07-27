@@ -33,7 +33,7 @@ function BookPage() {
         <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <p className="mono-label">Discovery</p>
-          <h1 className="mt-4 text-4xl leading-tight font-semibold text-balance-tight">
+          <h1 className="mt-4 text-hero leading-tight font-semibold text-balance-tight">
             Let's map your bottleneck.
           </h1>
           <p className="mt-5 text-muted-foreground">

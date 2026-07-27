@@ -49,7 +49,7 @@ function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <p className="mono-label">Why Opezeni exists</p>
-            <h1 className="mt-5 text-4xl leading-[1.08] font-semibold text-balance-tight sm:text-5xl">
+            <h1 className="mt-5 text-hero leading-[1.08] font-semibold text-balance-tight">
               Most AI automates the work. The founder still makes every decision.
             </h1>
           </Reveal>
@@ -79,7 +79,7 @@ function AboutPage() {
 
           <Reveal
             delay={0.15}
-            className="mt-12 space-y-6 text-[15px] leading-relaxed text-muted-foreground"
+            className="mt-12 space-y-6 text-base leading-relaxed text-muted-foreground"
           >
             <p>
               I'm self-taught. I started building agentic AI systems in 2026, after spending
@@ -112,7 +112,7 @@ function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <p className="mono-label">How I think</p>
-            <h2 className="mt-4 text-3xl font-semibold text-balance-tight sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-semibold text-balance-tight">
               Operating principles
             </h2>
           </Reveal>
@@ -122,8 +122,8 @@ function AboutPage() {
               <Reveal key={p.n} delay={i * 0.08}>
                 <TiltCard className="p-7 sm:p-8" intensity={3}>
                   <p className="font-mono text-xs tracking-widest text-primary">{p.n}</p>
-                  <h3 className="mt-4 font-display text-lg font-semibold sm:text-xl">{p.k}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{p.v}</p>
+                  <h3 className="mt-4 font-display text-lg font-semibold">{p.k}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">{p.v}</p>
                 </TiltCard>
               </Reveal>
             ))}
@@ -136,10 +136,10 @@ function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <p className="mono-label">Track record</p>
-            <h2 className="mt-4 text-3xl font-semibold text-balance-tight sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-semibold text-balance-tight">
               What I have actually shipped.
             </h2>
-            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
               Stated plainly, without rounding up.
             </p>
           </Reveal>
@@ -156,11 +156,11 @@ function AboutPage() {
           <VisionNetwork className="pointer-events-none absolute -top-10 -right-16 h-56 w-[520px] opacity-70" />
 
           <div className="relative">
-            <h2 className="max-w-2xl text-4xl font-semibold text-balance-tight sm:text-5xl">
+            <h2 className="max-w-2xl text-hero font-semibold text-balance-tight">
               I'm not building another AI tool.
             </h2>
 
-            <div className="mt-8 max-w-xl space-y-5 text-[15px] leading-relaxed text-muted-foreground">
+            <div className="mt-8 max-w-xl space-y-5 text-base leading-relaxed text-muted-foreground">
               <p>
                 Software companies are entering the same kind of transition as the move from
                 on-premise to cloud. Not a better version of the old shape — a different shape.

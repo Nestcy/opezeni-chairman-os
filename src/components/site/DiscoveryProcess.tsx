@@ -186,12 +186,12 @@ function StageCard({ stage, index }: { stage: Stage; index: number }) {
             )}
           </div>
 
-          <h3 className="mt-3 font-display text-xl font-semibold text-balance-tight sm:text-2xl">
+          <h3 className="mt-3 font-display text-xl font-semibold text-balance-tight">
             {stage.title}
           </h3>
 
           {stage.intro && (
-            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
               {stage.intro}
             </p>
           )}
@@ -211,7 +211,7 @@ function StageCard({ stage, index }: { stage: Stage; index: number }) {
                 {stage.bullets.map((b, i) => (
                   <motion.li
                     key={b}
-                    className="flex items-start gap-2.5 text-[15px] text-muted-foreground"
+                    className="flex items-start gap-2.5 text-base text-muted-foreground"
                     initial={{ opacity: 0, x: -8 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
@@ -232,7 +232,7 @@ function StageCard({ stage, index }: { stage: Stage; index: number }) {
             <p
               key={o}
               className={cn(
-                "mt-4 max-w-xl text-[15px] leading-relaxed",
+                "mt-4 max-w-xl text-base leading-relaxed",
                 index === STAGES.length - 1 ? "text-foreground/85" : "text-muted-foreground",
               )}
             >
@@ -274,7 +274,7 @@ function FitCard({
         {items.map((item, i) => (
           <motion.li
             key={item}
-            className="flex items-start gap-3 text-[15px] leading-relaxed text-muted-foreground"
+            className="flex items-start gap-3 text-base leading-relaxed text-muted-foreground"
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -331,7 +331,7 @@ export function DiscoveryProcess({ ctaTargetId }: { ctaTargetId?: string }) {
         </div>
 
         <Reveal className="glass mt-16 rounded-3xl px-6 py-14 text-center sm:px-12">
-          <h2 className="text-3xl font-semibold text-balance-tight sm:text-4xl">
+          <h2 className="text-3xl font-semibold text-balance-tight">
             Ready to see what Opezeni could look like inside your company?
           </h2>
           <div className="mt-8 flex justify-center">
