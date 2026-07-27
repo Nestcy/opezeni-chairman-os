@@ -31,7 +31,7 @@ const METRICS = [
   { label: "Runway", value: 27, prefix: "", suffix: " mo", delta: "+21 days", seed: 4 },
 ];
 
-export function HeroDashboard() {
+export function HeroDashboard({ embedded = false }: { embedded?: boolean }) {
   const [feedIndex, setFeedIndex] = useState(0);
   const charts = useMemo(() => METRICS.map((m) => spark(m.seed)), []);
 
@@ -43,11 +43,11 @@ export function HeroDashboard() {
   }, []);
 
   return (
-    <section className="relative z-10 px-4 pt-6 pb-20">
+    <section className={embedded ? "relative z-10 px-0" : "relative z-10 px-4 pt-6 pb-20"}>
       <div className="mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={embedded ? false : { opacity: 0, y: 40, scale: 0.985 }}
+          animate={embedded ? undefined : { opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="glass rounded-3xl p-3 shadow-[0_40px_120px_-40px_rgba(0,0,0,1)] sm:p-4"
         >
