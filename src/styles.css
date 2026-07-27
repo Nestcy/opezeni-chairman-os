@@ -126,7 +126,9 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.022em;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
   }
 
   ::selection {
@@ -203,11 +205,13 @@
 
 
 @utility mono-label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--foreground);
+  opacity: 0.6;
 }
 
 @media (prefers-reduced-motion: reduce) {
