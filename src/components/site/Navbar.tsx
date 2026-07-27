@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 
 const links = [
+  { to: "/", hash: "simulate", label: "Simulate" },
   { to: "/product", label: "Product" },
   { to: "/architecture", label: "Architecture" },
   { to: "/about", label: "About" },
