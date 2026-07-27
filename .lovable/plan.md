@@ -1,39 +1,33 @@
-## What already exists
+## Goal
 
-The site is built: hero dashboard, bottleneck/shift scroll narrative, company map, department simulations, operator→chairman, trust, architecture, About founder page, Cal.com booking. This plan adds the three missing pieces from the brief and tightens the copy.
+The home page currently opens with the film. You want it to open with the headline you selected, then cut to the founder on the beach, then zoom into his phone and land in the Opezeni console.
 
-## 1. Cinematic opening (new)
+## New order at the top of the page
 
-A scroll-driven film at the very top of the home page — it never blocks, never needs a skip button.
+```text
+1. Headline block      "Run your software company without running it."
+                       badge + subline + Experience Opezeni / Book Discovery Call
+2. The film            golden-hour beach cafe, founder sipping a coconut, no laptop
+3. The notification     phone lights up on the table, notification stack types in,
+                       he picks it up (phone lifts and squares to camera)
+4. The zoom             phone scales toward the viewer until the screen fills the frame
+5. The dashboard        phone chrome peels away, screen becomes the live console,
+                       which then unsticks and continues as the normal page
+```
 
-- Generate a golden-hour beach-café clip (founder relaxed, ocean, warm light, no laptop) as an AI video, uploaded to CDN so it doesn't bloat the repo. A generated still is used as the poster frame so the first paint is instant, and the clip is muted, autoplaying, and looping.
-- Overlaid on the film: a phone that lights up with an Opezeni notification stack — ROAS +18%, 46 conversations resolved, runway forecast updated, final interview scheduled — typed in one at a time.
-- Reduced-motion and slow-connection visitors get the still poster with the same notification stack, no video.
+## What changes
 
-## 2. The seamless transition into the dashboard
-
-- Scrolling scales and centers the phone until its screen fills the viewport; the film dims and desaturates behind it.
-- At full-bleed, the phone's screen content cross-dissolves into the live console — same corner radius, same border, so the phone chrome peels away rather than cutting.
-- The console then unsticks and becomes the normal hero section, with the headline "Run your software company without running it." and CTAs "Experience Opezeni" (jumps into the narrative) and "Book Discovery Call".
-
-## 3. Simulate My Company (new section on the home page)
-
-Placed after the department demos.
-
-- Three questions: monthly recurring revenue, team size, biggest operational bottleneck. Sliders and a choice grid, one question per step.
-- A reasoning sequence plays: mapping departments → finding bottlenecks → assigning AI agents → building operational model, each line resolving with a check.
-- Result: a personalized console — their MRR and headcount drive the numbers, their named bottleneck is the agent that gets highlighted first, with estimated hours per week reclaimed and a runway/revenue projection. Ends with the discovery-call CTA.
-- Everything runs in the browser from their inputs; no data is stored or sent anywhere.
-
-## 4. Continuity pass
-
-- Chapter copy checked against the brief ("Every decision flows through you." / "That's not a company. That's a bottleneck.").
-- Nav gets a link to the simulator; home-page metadata unchanged.
-- Ambient grid pauses behind the film so it doesn't compete with the footage.
+- **Headline moves out of the dashboard section.** The hero text block becomes its own opening screen at the very top — full viewport height, centered, ambient grid behind it, with a quiet scroll cue at the bottom. No console under it anymore.
+- **The film section moves below it** and keeps its own scroll stage. The opening caption ("The company is running. He isn't.") stays with the film, not with the headline.
+- **A new beat: picking up the phone.** Right now the phone just grows. It will first sit low and slightly tilted on the table while notifications arrive, then lift, straighten, and center — reading as him picking it up — before the zoom begins.
+- **The zoom ends in the real console.** The phone screen cross-dissolves into the full live dashboard (metrics, sparklines, agent status, activity stream) at the same corner radius, then the bezel fades and the console becomes the ordinary hero-sized section that scrolls on into Chapter 1.
+- **The dashboard section keeps everything except the headline** — the console panel stays exactly as it is today, just without duplicated hero copy above it.
+- Reduced-motion visitors get: headline → still poster with the notification stack → console, no scroll choreography.
 
 ## Technical notes
 
-- New: `CinematicOpening.tsx`, `SimulateCompany.tsx`, plus a small `useSequenceProgress` helper; `HeroDashboard` gains a `phase` prop so it can render inside the phone screen and full-size.
-- Video and poster go through `lovable-assets` (`.asset.json` pointers), never committed as binaries.
-- Transition uses one `useScroll` range on a tall sticky stage — same pattern as the existing Think section — so there's a single scroll authority and no jank.
-- Simulator state is local React; no backend, no new dependencies beyond what's installed.
+- New `HeroIntro` component holds the headline block lifted out of `HeroDashboard`; `HeroDashboard` gets a `bare` mode that renders only the console panel.
+- `CinematicOpening` gains the pick-up beat: additional `useTransform` ranges on the existing single scroll progress driving phone `y`, `rotate`, and `scale` before the current width/height growth range, so there's still one scroll authority.
+- The final console inside the phone reuses the real `HeroDashboard` console markup rather than the simplified `ConsoleScreen` mock, so the handoff at full-bleed is pixel-continuous.
+- `src/routes/index.tsx` order becomes `HeroIntro → CinematicOpening → HeroDashboard → ThinkSection → …`.
+- No new dependencies; existing video and poster assets are reused.
