@@ -68,6 +68,9 @@ function BookPage() {
           </div>
         </Reveal>
       </div>
-    </section>
+      </section>
+
+      <DiscoveryProcess ctaTargetId="calendar" />
+    </>
   );
 }
