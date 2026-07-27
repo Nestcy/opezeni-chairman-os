@@ -1,29 +1,39 @@
-## Problem
-The `ThinkSection` glass card is visually crowding the bottom of the cinematic hero, making the “Experience Opezeni” and “Book Discovery Call” buttons feel blocked or cramped even after the z-index fix.
+## Goal
+Add a premium "How the discovery process works" experience: a scroll-animated six-stage timeline, two fit-comparison cards, and a closing CTA — using the existing terracotta/cream design system and Framer Motion primitives.
 
-## Plan
-Tighten the `ThinkSection` component without removing its narrative or animations, and shorten its scroll track so the hero CTAs have clear breathing room.
+## Placement
+- New component `src/components/site/DiscoveryProcess.tsx` (timeline + fit cards + CTA).
+- Rendered on `/book` (`src/routes/book.tsx`) directly below the calendar block, so it answers "what happens after I book?" at the exact moment of hesitation.
+- Also rendered on the homepage (`src/routes/index.tsx`) between `Trust` and `Architecture`, so homepage visitors see the process before the final CTA. If you'd rather keep it on `/book` only, say so and I'll drop the homepage insertion.
 
-### 1. Shrink the diagram canvas
-- Lower the SVG container height from `h-[340px] sm:h-[400px]` to `h-[280px] sm:h-[320px]`.
+## Timeline design
+- Vertical rail with a scroll-linked progress line: a `useScroll`-driven `scaleY` gradient (terracotta → sand → transparent) that fills as the section scrolls, extending the pattern already used in `FounderTimeline`.
+- Six stage cards, alternating emphasis on desktop, single column on mobile.
+- Each stage node: numbered mono badge (`01`–`06`) with a soft terracotta ring that illuminates via `whileInView` (elevate-warm glow), plus a per-stage icon (PhoneCall, Network, FileText, ShieldCheck, Rocket, Crown from lucide).
+- Card content: step label, title, optional duration chip ("20–30 min" on step 1), body copy, and bulleted lists with small terracotta markers. Bullets stagger in with `Reveal`-style delays.
+- Content copy used verbatim from the request for all six stages.
+- Respects `prefers-reduced-motion` by falling back to plain opacity reveals.
 
-### 2. Tighten spacing
-- Reduce the glass card padding from `p-5 sm:p-8` to `p-4 sm:p-6`.
-- Reduce the inner grid gap from `gap-8` to `gap-6`.
+## Fit comparison
+- Two cards below the timeline using `TiltCard`:
+  - "Great Fit" — sage/success accent, check markers, 5 bullets.
+  - "Probably Not a Fit" — muted/warning accent, x markers, 4 bullets.
+- Equal-height grid, `glass` surface, subtle border-color shift on hover.
 
-### 3. Compress the copy block
-- Lower the `min-h-[180px]` on the right-side text block.
-- Tighten headline/paragraph spacing so the text doesn’t force extra height.
+## Section CTA
+- Centered headline "Ready to see what Opezeni could look like inside your company?"
+- `MagneticButton` with `btn-primary` → links to `/book` (on the `/book` page it scrolls to the calendar instead of navigating).
+- Muted secondary paragraph with the 20–30 minute / no-obligation copy.
 
-### 4. Shorten the scroll track
-- Reduce the section height from `h-[320vh]` to `h-[280vh]` so `ThinkSection` starts and ends sooner, leaving more room for the hero CTAs.
+## Technical notes
+- Only semantic tokens (`primary`, `sand`, `success`, `warning`, `muted-foreground`) — no hardcoded colors.
+- Reuses `Reveal`, `TiltCard`, `MagneticButton`, `SectionHeader` from `src/components/site/primitives.tsx`.
+- Stage data lives in a typed const array inside the component file for easy copy edits.
+- Section keeps `relative z-10` to match sibling sections and avoid the hero stacking issue fixed earlier.
 
-### 5. Verify
-- Check the live preview at the scroll position where the hero CTAs sit to confirm they remain fully visible and clickable on both desktop and mobile.
+## Files
+- new: `src/components/site/DiscoveryProcess.tsx`
+- edit: `src/routes/book.tsx`, `src/routes/index.tsx`
 
-## Files to edit
-- `src/components/site/ThinkSection.tsx`
-- `src/routes/index.tsx` (scroll-track height only if needed)
-
-## Outcome
-The same bottleneck-to-orchestrator narrative stays intact, but the section takes up less vertical real estate and no longer visually blocks the hero CTAs.
+## Verification
+Build the project and take Playwright screenshots at several scroll positions on desktop and mobile to confirm the progress line fills correctly and cards read cleanly.
