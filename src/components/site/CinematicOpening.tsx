@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
   motion,
   useMotionValue,
@@ -5,49 +6,27 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { LineChart, Megaphone, LifeBuoy, Users, Wallet } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import poster from "@/assets/opening-poster.jpg.asset.json";
-import clip from "@/assets/opening-scene.mp4.asset.json";
-import { StatusDot } from "./primitives";
-
-const NOTIFICATIONS = [
-  { icon: Megaphone, text: "Marketing Agent increased ROAS by 18%" },
-  { icon: LifeBuoy, text: "Support Agent resolved 46 conversations" },
-  { icon: Wallet, text: "Finance Agent updated runway forecast" },
-  { icon: Users, text: "Hiring Agent scheduled final interview" },
-  { icon: LineChart, text: "Revenue up 6.1% this week" },
-];
-
-const CONSOLE_METRICS = [
-  { label: "Revenue", value: "$482.4k", delta: "+12.4%" },
-  { label: "MRR", value: "$41.8k", delta: "+6.1%" },
-  { label: "Growth", value: "18.6%", delta: "+2.3 pts" },
-  { label: "Runway", value: "27 mo", delta: "+21 days" },
-];
-
-const CONSOLE_AGENTS = [
-  { name: "Marketing Agent", status: "Reallocating spend" },
-  { name: "Support Agent", status: "Resolving tickets" },
-  { name: "Finance Agent", status: "Forecasting runway" },
-  { name: "Hiring Agent", status: "Ranking candidates" },
-];
+import poster from "@/assets/founder-cafe-poster.jpg.asset.json";
+import clip from "@/assets/founder-cafe.mp4.asset.json";
+import { HeroDashboard } from "./HeroDashboard";
+import { MagneticButton } from "./primitives";
 
 /**
- * Chapter 00 — the film.
- * Golden hour beach cafe, a phone lighting up with the company running itself,
- * then a scroll-driven zoom that turns the phone screen into the live console.
+ * Chapter 00 — one continuous journey.
+ * A full-bleed film of the founder, undisturbed. As you scroll it scales,
+ * blurs and recedes while the live Opezeni console rises from below and the
+ * hero copy settles on top. No hard cuts anywhere.
  */
 export function CinematicOpening() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const progress = useMotionValue(0);
-  const [size, setSize] = useState({ w: 1280, h: 900 });
 
   useEffect(() => {
     if (reduced) return;
     let raf = 0;
-    const measure = () => setSize({ w: window.innerWidth, h: window.innerHeight });
     const update = () => {
       raf = 0;
       const el = ref.current;
@@ -59,15 +38,12 @@ export function CinematicOpening() {
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
-    measure();
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
-      measure();
-      onScroll();
-    });
+    window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [progress, reduced]);
@@ -75,97 +51,90 @@ export function CinematicOpening() {
   if (reduced) return <StaticOpening />;
 
   return (
-    <section ref={ref} className="relative z-10 h-[300vh]" aria-label="Opezeni opening sequence">
+    <section ref={ref} className="relative z-10 h-[250vh]" aria-label="Opezeni opening sequence">
       <div className="sticky top-0 h-screen overflow-hidden">
-        <Stage progress={progress} viewport={size} />
+        <Stage progress={progress} />
       </div>
     </section>
   );
 }
 
-function Stage({
-  progress,
-  viewport,
-}: {
-  progress: MotionValue<number>;
-  viewport: { w: number; h: number };
-}) {
-  const filmOpacity = useTransform(progress, [0, 0.45, 0.68], [1, 0.85, 0]);
-  const filmScale = useTransform(progress, [0, 0.7], [1.06, 1.22]);
-  const filmSaturate = useTransform(progress, [0.3, 0.65], [1, 0.2]);
-  const filmFilter = useTransform(filmSaturate, (s) => `saturate(${s}) brightness(${0.35 + s * 0.5})`);
+function Stage({ progress }: { progress: MotionValue<number> }) {
+  // the film: untouched at rest, then it swells, softens and recedes
+  const filmScale = useTransform(progress, [0.2, 0.65], [1, 1.12]);
+  const filmOpacity = useTransform(progress, [0.2, 0.65], [1, 0.25]);
+  const filmBlur = useTransform(progress, [0.2, 0.65], [0, 18]);
+  const filmBrightness = useTransform(progress, [0.2, 0.65], [1, 0.45]);
+  const filmFilter = useTransform(
+    [filmBlur, filmBrightness] as MotionValue<number>[],
+    ([b, br]: number[]) => `blur(${b}px) brightness(${br})`,
+  );
+  const veil = useTransform(progress, [0.25, 0.7], [0, 0.75]);
 
-  const wideW = Math.min(1100, viewport.w * 0.94);
-  const wideH = Math.min(660, viewport.h * 0.78);
-  const smallH = Math.min(510, viewport.h * 0.62);
-  const phoneWidth = useTransform(progress, [0.3, 0.72], [248, wideW]);
-  const phoneHeight = useTransform(progress, [0.3, 0.72], [smallH, wideH]);
-  // pick-up beat: the phone lies low and tilted on the table, then lifts and squares up
-  const phoneY = useTransform(progress, [0, 0.14, 0.3], [110, 96, 0]);
-  const phoneRotate = useTransform(progress, [0, 0.14, 0.3], [-9, -8, 0]);
-  const phoneRotateX = useTransform(progress, [0, 0.14, 0.3], [26, 22, 0]);
-  const phoneScale = useTransform(progress, [0, 0.14, 0.3], [0.9, 0.94, 1]);
-  const bezel = useTransform(progress, [0.42, 0.6], [1, 0]);
-  const bezelPad = useTransform(bezel, (b) => `${b * 10}px`);
-  const consoleOpacity = useTransform(progress, [0.44, 0.6], [0, 1]);
-  const captionOpacity = useTransform(progress, [0, 0.12, 0.26], [1, 1, 0]);
-  const outroOpacity = useTransform(progress, [0.74, 0.86], [0, 1]);
+  const cueOpacity = useTransform(progress, [0, 0.08, 0.15], [1, 1, 0]);
+
+  // the console rises from below and locks into the viewport
+  const dashY = useTransform(progress, [0.35, 0.75], ["24vh", "0vh"]);
+  const dashScale = useTransform(progress, [0.35, 0.75], [0.94, 1]);
+  const dashOpacity = useTransform(progress, [0.35, 0.6], [0, 1]);
+
+  // hero copy only once we are inside the product
+  const copyOpacity = useTransform(progress, [0.7, 0.9], [0, 1]);
+  const copyY = useTransform(progress, [0.7, 0.9], [22, 0]);
 
   return (
     <div className="relative h-full w-full">
-
-      {/* film */}
-      <motion.div style={{ opacity: filmOpacity, scale: filmScale, filter: filmFilter }} className="absolute inset-0">
+      <motion.div
+        style={{ scale: filmScale, opacity: filmOpacity, filter: filmFilter }}
+        className="absolute inset-0"
+      >
         <Film />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
+      <motion.div style={{ opacity: veil }} className="absolute inset-0 bg-background" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/80" />
 
-      {/* opening caption */}
+      {/* scroll cue — the only thing over the film at rest */}
       <motion.div
-        style={{ opacity: captionOpacity }}
-        className="absolute inset-x-0 top-[22vh] px-6 text-center"
+        style={{ opacity: cueOpacity }}
+        className="pointer-events-none absolute inset-x-0 bottom-10 flex flex-col items-center gap-2"
       >
-        <p className="mono-label">Tuesday, 6:41 PM — somewhere with better light</p>
-        <p className="mx-auto mt-3 max-w-md font-display text-lg font-medium text-foreground/90 sm:text-xl">
-          The company is running. He isn't.
-        </p>
+        <span className="mono-label">Scroll</span>
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 2.4 }}>
+          <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden />
+        </motion.div>
       </motion.div>
 
-      {/* phone → console */}
-      <div
-        className="absolute inset-0 flex items-center justify-center px-4"
-        style={{ perspective: 1400 }}
+      {/* the operating system */}
+      <motion.div
+        style={{ y: dashY, scale: dashScale, opacity: dashOpacity }}
+        className="absolute inset-0 flex flex-col justify-center px-4"
       >
         <motion.div
-          style={{
-            width: phoneWidth,
-            height: phoneHeight,
-            padding: bezelPad,
-            y: phoneY,
-            rotate: phoneRotate,
-            rotateX: phoneRotateX,
-            scale: phoneScale,
-          }}
-          className="relative rounded-[2.2rem] bg-[#0d0d0d] shadow-[0_60px_160px_-40px_rgba(0,0,0,1)]"
+          style={{ opacity: copyOpacity, y: copyY }}
+          className="mx-auto w-full max-w-3xl pb-5 text-center"
         >
-          <motion.div
-            style={{ opacity: bezel }}
-            className="pointer-events-none absolute inset-0 rounded-[2.2rem] ring-1 ring-white/15"
-          />
-          <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] border border-border bg-surface">
-            <motion.div style={{ opacity: consoleOpacity }} className="absolute inset-0">
-              <ConsoleScreen />
-            </motion.div>
+          <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
+            Run your software company
+            <br className="hidden sm:block" /> without running it.
+          </h1>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            The autonomous operating system for SaaS founders.
+          </p>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <a href="#think">
+              <MagneticButton className="btn-primary px-5 py-2.5 text-sm">
+                Experience Opezeni
+                <ArrowRight className="h-4 w-4" />
+              </MagneticButton>
+            </a>
+            <Link to="/book" className="btn-secondary px-5 py-2.5 text-sm">
+              Book Discovery Call
+            </Link>
           </div>
         </motion.div>
-      </div>
 
-      <motion.p
-        style={{ opacity: outroOpacity }}
-        className="absolute inset-x-0 bottom-14 px-6 text-center mono-label"
-      >
-        You are now inside Opezeni
-      </motion.p>
+        <HeroDashboard embedded />
+      </motion.div>
     </div>
   );
 }
@@ -175,18 +144,16 @@ function Film() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.play().catch(() => undefined);
+    videoRef.current?.play().catch(() => undefined);
   }, []);
 
   return (
     <>
       <img
         src={poster.url}
-        alt="A founder relaxing at a beach cafe at golden hour, phone face down on the table"
-        width={1920}
-        height={1088}
+        alt="A founder sipping tea at an ocean-side cafe at golden hour"
+        width={1280}
+        height={720}
         className="absolute inset-0 h-full w-full object-cover"
       />
       <video
@@ -197,7 +164,7 @@ function Film() {
         loop
         playsInline
         autoPlay
-        preload="metadata"
+        preload="auto"
         onPlaying={() => setReady(true)}
         aria-hidden
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
@@ -208,79 +175,39 @@ function Film() {
   );
 }
 
-function ConsoleScreen() {
-  return (
-    <div className="flex h-full flex-col p-4 sm:p-5">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <StatusDot tone="success" />
-          <span className="mono-label">Opezeni console — live</span>
-        </div>
-        <span className="mono-label hidden sm:inline">Autonomy 94%</span>
-      </div>
-
-      <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-        {CONSOLE_METRICS.map((m) => (
-          <div key={m.label} className="rounded-xl border border-border bg-card/70 p-3">
-            <p className="text-[10px] text-muted-foreground">{m.label}</p>
-            <p className="mt-1 font-display text-base font-semibold">{m.value}</p>
-            <p className="text-[10px] font-medium text-[color:var(--success)]">{m.delta}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-3 grid content-start gap-2.5 overflow-hidden sm:grid-cols-2">
-        {CONSOLE_AGENTS.map((a) => (
-          <div
-            key={a.name}
-            className="flex items-center gap-3 rounded-xl border border-border bg-card/70 px-3 py-2.5"
-          >
-            <StatusDot tone="success" />
-            <div className="min-w-0">
-              <p className="truncate text-[12px] font-medium">{a.name}</p>
-              <p className="truncate text-[10px] text-muted-foreground">{a.status}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-3 flex-1 overflow-hidden rounded-xl border border-border bg-card/50 p-3">
-        <p className="mono-label">Decision log</p>
-        <ul className="mt-2 space-y-1.5">
-          {NOTIFICATIONS.map((n) => (
-            <li
-              key={n.text}
-              className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground"
-            >
-              <n.icon className="h-3 w-3 shrink-0 text-primary" aria-hidden />
-              <span className="truncate">{n.text}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="mt-3 flex items-center gap-2">
-        <StatusDot tone="success" />
-        <span className="font-mono text-[10px] text-muted-foreground">
-          6 agents operating · 0 waiting on you
-        </span>
-      </div>
-
-    </div>
-  );
-}
-
-/** Reduced-motion fallback: the still, no scroll choreography. */
+/** Reduced-motion fallback: the still, then the console — no choreography. */
 function StaticOpening() {
   return (
-    <section className="relative z-10 h-[70vh] min-h-[520px] overflow-hidden">
-      <img
-        src={poster.url}
-        alt="A founder relaxing at a beach cafe at golden hour, phone face down on the table"
-        width={1920}
-        height={1088}
-        className="absolute inset-0 h-full w-full object-cover opacity-70"
-      />
-    </section>
+    <>
+      <section className="relative z-10 h-[70vh] min-h-[480px] overflow-hidden">
+        <img
+          src={poster.url}
+          alt="A founder sipping tea at an ocean-side cafe at golden hour"
+          width={1280}
+          height={720}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
+      </section>
+      <section className="relative z-10 px-4 pt-10">
+        <div className="mx-auto max-w-3xl text-center">
+          <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
+            Run your software company without running it.
+          </h1>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
+            The autonomous operating system for SaaS founders.
+          </p>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <a href="#think" className="btn-primary px-5 py-2.5 text-sm">
+              Experience Opezeni
+            </a>
+            <Link to="/book" className="btn-secondary px-5 py-2.5 text-sm">
+              Book Discovery Call
+            </Link>
+          </div>
+        </div>
+      </section>
+      <HeroDashboard />
+    </>
   );
 }
