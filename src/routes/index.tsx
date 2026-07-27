@@ -4,7 +4,6 @@ import { CinematicOpening } from "@/components/site/CinematicOpening";
 import { ThinkSection } from "@/components/site/ThinkSection";
 import { CompanyMap } from "@/components/site/CompanyMap";
 import { Simulations } from "@/components/site/Simulations";
-import { SimulateCompany } from "@/components/site/SimulateCompany";
 import { OperatorChairman } from "@/components/site/OperatorChairman";
 import { Trust } from "@/components/site/Trust";
 import { Architecture } from "@/components/site/Architecture";
@@ -42,7 +41,6 @@ function Index() {
       <ThinkSection />
       <CompanyMap onOpenDemo={openDemo} />
       <Simulations active={dept} onChange={setDept} />
-      <SimulateCompany />
       <OperatorChairman />
       <Trust />
       <Architecture compact />
