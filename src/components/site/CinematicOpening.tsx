@@ -15,8 +15,7 @@ import { MagneticButton } from "./primitives";
 /**
  * Chapter 00 — one continuous journey.
  * A full-bleed film of the founder, undisturbed. As you scroll it scales,
- * blurs and recedes while the live Opezeni console rises from below and the
- * hero copy settles on top. No hard cuts anywhere.
+ * blurs and recedes while the hero copy settles on top. No hard cuts anywhere.
  */
 export function CinematicOpening() {
   const ref = useRef<HTMLElement>(null);
