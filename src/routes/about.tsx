@@ -4,6 +4,7 @@ import { MagneticButton, Reveal, TiltCard } from "@/components/site/primitives";
 import { FounderTimeline } from "@/components/site/FounderTimeline";
 import { VisionNetwork } from "@/components/site/VisionNetwork";
 import portrait from "@/assets/ernest-zimba.jpg.asset.json";
+import { assetUrl } from "@/lib/asset";
 
 const TITLE = "Ernest Zimba — Why Opezeni exists";
 const DESC =
@@ -58,7 +59,7 @@ function AboutPage() {
             <figure className="grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
               <div className="relative overflow-hidden rounded-2xl border border-border">
                 <img
-                  src={portrait.url}
+                  src={assetUrl(portrait)}
                   alt="Ernest Zimba, founder of Opezeni"
                   className="aspect-[4/5] w-full object-cover object-center sm:aspect-[5/4]"
                   loading="lazy"

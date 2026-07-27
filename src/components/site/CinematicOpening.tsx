@@ -10,6 +10,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import poster from "@/assets/founder-cafe-poster.jpg.asset.json";
 import clip from "@/assets/founder-cafe.mp4.asset.json";
+import { assetUrl } from "@/lib/asset";
 import { MagneticButton } from "./primitives";
 
 /**
@@ -153,7 +154,7 @@ function Film({ className = "" }: { className?: string }) {
     <>
       {(!ready || failed) && (
         <img
-          src={poster.url}
+          src={assetUrl(poster)}
           alt="A founder sipping tea at an ocean-side cafe at golden hour"
           width={1280}
           height={720}
@@ -163,8 +164,8 @@ function Film({ className = "" }: { className?: string }) {
       {!failed && (
         <video
           ref={videoRef}
-          src={clip.url}
-          poster={poster.url}
+          src={assetUrl(clip)}
+          poster={assetUrl(poster)}
           muted
           loop
           playsInline

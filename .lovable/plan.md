@@ -1,20 +1,28 @@
-## Add Founder Contact to Footer
+## What's wrong
 
-Update `src/components/site/Footer.tsx` to include Ernest Zimba’s contact details alongside the existing nav.
+Confirmed by request: the hero video path returns **200 on the Lovable domain** and **404 on www.opezeni.space**.
 
-### What will change
-- Add a new contact column/section in the footer with:
-  - **Email:** nestcy770@gmail.com (mailto link)
-  - **Phone:** +260973732409 / 0767918627 (tel link)
-  - **LinkedIn:** https://www.linkedin.com/in/ernest-zimba-904661318/... (external link)
-  - **X:** Ernest Zimba (@ernestzimba__) / X (external link to X profile)
-- Use Lucide icons (`Mail`, `Phone`, `Linkedin`, `Twitter` or `X` alias) for visual scannability.
-- Keep the existing premium industrial aesthetic: muted text, hover to cream/terracotta, no hardcoded colors.
-- Ensure external links open in a new tab with `rel="noopener noreferrer"` and use semantic `a` tags (not `Link`) for mail/tel/external URLs.
-- Maintain responsive layout so the footer still stacks cleanly on mobile.
+The video (and poster, portrait, etc.) are stored as Lovable CDN assets and referenced by a root-relative path:
 
-### Files to edit
-- `src/components/site/Footer.tsx`
+```text
+/__l5e/assets-v1/<id>/founder-cafe.mp4
+```
 
-### No new dependencies
-Lucide icons are already used elsewhere in the project.
+That path only exists on Lovable's hosting layer. Vercel has no route for `/__l5e/...`, so it serves the SPA 404 HTML, the `<video>` fires `onError`, and `CinematicOpening` falls back to the poster — which also 404s, so you get a blank/dark hero.
+
+## Fix
+
+Resolve asset pointers through an absolute origin instead of a relative path.
+
+1. Add `src/lib/asset.ts` with `assetUrl(pointer)` that returns `pointer.url` unchanged when running on a Lovable host, and prefixes the Lovable asset origin (`https://opezeni-chairman-os.lovable.app`) otherwise. Resolution stays SSR-safe by using a build-time env value rather than `window`.
+2. Route every `.asset.json` consumer through it: `CinematicOpening.tsx` (video + poster), plus the other asset imports (`ernest-zimba.jpg`, `opening-poster.jpg`, `opening-scene.mp4`) wherever they're used.
+3. Verify by re-fetching the resolved absolute URL and by loading the page.
+
+### Alternative (say the word if you prefer it)
+
+Copy the media into `public/` and reference `/founder-cafe.mp4` directly. Fully host-independent and no CDN dependency, but adds ~9 MB of binaries to the repo and to every Vercel deploy.
+
+## Technical notes
+
+- The CDN origin will be a `VITE_` env var with the Lovable URL as default, so you can repoint it later without code changes.
+- No change to the scroll choreography, motion timings, or layout.
