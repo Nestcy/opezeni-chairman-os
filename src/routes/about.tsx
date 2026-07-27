@@ -122,7 +122,7 @@ function AboutPage() {
               <Reveal key={p.n} delay={i * 0.08}>
                 <TiltCard className="p-7 sm:p-8" intensity={3}>
                   <p className="font-mono text-xs tracking-widest text-primary">{p.n}</p>
-                  <h3 className="mt-4 font-display text-lg">{p.k}</h3>
+                  <h3 className="mt-4 font-display text-xl">{p.k}</h3>
                   <p className="mt-3 text-base leading-relaxed text-muted-foreground">{p.v}</p>
                 </TiltCard>
               </Reveal>
