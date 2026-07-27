@@ -93,7 +93,8 @@ export function HeroDashboard() {
 
           <div className="grid gap-3 lg:grid-cols-[1.55fr_1fr]">
             {/* Company health */}
-            <div className="rounded-2xl border border-border bg-surface/60 p-4">
+            <div className="flex flex-col rounded-2xl border border-border bg-surface/60 p-4">
+
               <p className="mono-label">Company health</p>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {METRICS.map((m, i) => (
