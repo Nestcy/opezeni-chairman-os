@@ -60,27 +60,28 @@ export function CinematicOpening() {
 }
 
 function Stage({ progress }: { progress: MotionValue<number> }) {
-  // the film: untouched at rest, then it swells, softens and recedes
-  const filmScale = useTransform(progress, [0.2, 0.65], [1, 1.12]);
-  const filmOpacity = useTransform(progress, [0.2, 0.65], [1, 0.25]);
-  const filmBlur = useTransform(progress, [0.2, 0.65], [0, 18]);
-  const filmBrightness = useTransform(progress, [0.2, 0.65], [1, 0.45]);
+  // the film: holds full strength through the scroll, releases only at the handoff
+  const filmScale = useTransform(progress, [0, 0.85], [1, 1.06]);
+  const filmOpacity = useTransform(progress, [0.62, 0.85], [1, 0]);
+  const filmBlur = useTransform(progress, [0.6, 0.85], [0, 8]);
+  const filmBrightness = useTransform(progress, [0.6, 0.85], [1, 0.7]);
   const filmFilter = useTransform(
     [filmBlur, filmBrightness] as MotionValue<number>[],
     ([b, br]: number[]) => `blur(${b}px) brightness(${br})`,
   );
-  const veil = useTransform(progress, [0.25, 0.7], [0, 0.75]);
+  const veil = useTransform(progress, [0.6, 0.88], [0, 1]);
 
   const cueOpacity = useTransform(progress, [0, 0.08, 0.15], [1, 1, 0]);
 
   // the console rises from below and locks into the viewport
-  const dashY = useTransform(progress, [0.35, 0.75], ["24vh", "0vh"]);
-  const dashScale = useTransform(progress, [0.35, 0.75], [0.94, 1]);
-  const dashOpacity = useTransform(progress, [0.35, 0.6], [0, 1]);
+  const dashY = useTransform(progress, [0.55, 0.88], ["24vh", "0vh"]);
+  const dashScale = useTransform(progress, [0.55, 0.88], [0.94, 1]);
+  const dashOpacity = useTransform(progress, [0.6, 0.8], [0, 1]);
 
   // hero copy only once we are inside the product
-  const copyOpacity = useTransform(progress, [0.7, 0.9], [0, 1]);
-  const copyY = useTransform(progress, [0.7, 0.9], [22, 0]);
+  const copyOpacity = useTransform(progress, [0.85, 1], [0, 1]);
+  const copyY = useTransform(progress, [0.85, 1], [22, 0]);
+
 
   return (
     <div className="relative h-full w-full">
