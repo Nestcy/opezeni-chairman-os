@@ -170,11 +170,12 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
           </motion.div>
           <motion.div style={{ opacity: act2Text }} className="absolute inset-0">
             <p className="mono-label text-[color:var(--success)]">Act 02 — The transformation</p>
-            <h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">
-              Operator
-              <span className="mx-3 text-primary">→</span>
-              Chairman
+            <h2 className="mt-3 flex flex-wrap items-center gap-x-3 font-display text-3xl font-semibold sm:text-4xl">
+              <span>Operator</span>
+              <span className="text-primary">→</span>
+              <span>Chairman</span>
             </h2>
+
             <p className="mt-4 text-muted-foreground">
               Opezeni takes the center. Agents resume. The founder receives summaries, not queues.
             </p>
