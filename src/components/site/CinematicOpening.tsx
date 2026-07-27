@@ -103,11 +103,8 @@ function Stage({
   // pick-up beat: the phone lies low and tilted on the table, then lifts and squares up
   const phoneY = useTransform(progress, [0, 0.14, 0.3], [110, 96, 0]);
   const phoneRotate = useTransform(progress, [0, 0.14, 0.3], [-9, -8, 0]);
-  const phoneTilt = useTransform(progress, [0, 0.14, 0.3], [26, 22, 0]);
-  const phonePerspective = useTransform(
-    phoneTilt,
-    (t) => `perspective(1400px) rotateX(${t}deg)`,
-  );
+  const phoneRotateX = useTransform(progress, [0, 0.14, 0.3], [26, 22, 0]);
+  const phoneScale = useTransform(progress, [0, 0.14, 0.3], [0.9, 0.94, 1]);
   const bezel = useTransform(progress, [0.42, 0.6], [1, 0]);
   const bezelPad = useTransform(bezel, (b) => `${b * 10}px`);
   const notifOpacity = useTransform(progress, [0.3, 0.42], [1, 0]);
