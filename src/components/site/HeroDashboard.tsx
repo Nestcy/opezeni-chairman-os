@@ -136,7 +136,7 @@ export function HeroDashboard() {
                 ))}
               </div>
 
-              <div className="mt-4 rounded-xl border border-border bg-card/70 p-3">
+              <div className="mt-4 rounded-xl border border-border bg-card/70 p-3 lg:mt-auto">
                 <div className="flex items-center gap-2">
                   <Activity className="h-3.5 w-3.5 text-primary" />
                   <span className="mono-label">Activity stream</span>
