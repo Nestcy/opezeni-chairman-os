@@ -65,10 +65,10 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
 
 
   return (
-    <div className="glass relative overflow-hidden rounded-3xl p-5 sm:p-8">
-      <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+    <div className="glass relative overflow-hidden rounded-3xl p-4 sm:p-6">
+      <div className="grid items-center gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         {/* diagram */}
-        <div className="relative h-[340px] sm:h-[400px]">
+        <div className="relative h-[280px] sm:h-[320px]">
           <svg viewBox="0 0 420 380" className="absolute inset-0 h-full w-full" aria-hidden>
             {NODES.map((_, i) => {
               const y = 40 + i * 74;
