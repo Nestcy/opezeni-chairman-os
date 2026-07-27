@@ -184,10 +184,11 @@ export function StatusDot({
         <motion.span
           className="absolute inset-0 rounded-full"
           style={{ background: color }}
-          animate={{ scale: [1, 2.4, 1], opacity: [0.6, 0, 0.6] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
+          animate={{ scale: [1, 2, 1], opacity: [0.35, 0, 0.35] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "easeOut" }}
         />
       )}
+
       <span className="relative h-2 w-2 rounded-full" style={{ background: color }} />
     </span>
   );

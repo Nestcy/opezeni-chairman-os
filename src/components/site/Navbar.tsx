@@ -43,7 +43,7 @@ export function Navbar() {
               key={l.label}
               to={l.to}
               hash={"hash" in l ? l.hash : undefined}
-              className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+              className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
               {l.label}
@@ -54,10 +54,11 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             to="/book"
-            className="hidden rounded-lg bg-primary px-3.5 py-2 text-sm font-medium text-primary-foreground transition-shadow hover:glow-accent sm:inline-flex"
+            className="btn-primary hidden px-3.5 py-2 text-sm sm:inline-flex"
           >
             Book Discovery
           </Link>
+
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -82,7 +83,7 @@ export function Navbar() {
               to={l.to}
               hash={"hash" in l ? l.hash : undefined}
               onClick={() => setOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
+              className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
             >
               {l.label}
             </Link>

@@ -26,17 +26,15 @@ export function HeroIntro() {
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href="#think">
-            <MagneticButton className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground glow-accent">
+            <MagneticButton className="btn-primary px-5 py-3 text-sm">
               Experience Opezeni
               <ArrowRight className="h-4 w-4" />
             </MagneticButton>
           </a>
-          <Link
-            to="/book"
-            className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-white/5"
-          >
+          <Link to="/book" className="btn-secondary px-5 py-3 text-sm">
             Book Discovery Call
           </Link>
+
         </div>
 
         <motion.div

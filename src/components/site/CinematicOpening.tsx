@@ -146,7 +146,7 @@ function Stage({
             rotateX: phoneRotateX,
             scale: phoneScale,
           }}
-          className="relative rounded-[2.2rem] bg-[#0b0e13] shadow-[0_60px_160px_-40px_rgba(0,0,0,1)]"
+          className="relative rounded-[2.2rem] bg-[#0d0d0d] shadow-[0_60px_160px_-40px_rgba(0,0,0,1)]"
         >
           <motion.div
             style={{ opacity: bezel }}

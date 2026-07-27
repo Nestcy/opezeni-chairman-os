@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { DEPARTMENTS, type DeptId } from "@/lib/opezeni";
+import { RGBA } from "@/lib/palette";
+
 import { SectionHeader, Reveal } from "./primitives";
 import { Logo } from "./Logo";
 
@@ -49,10 +50,9 @@ export function CompanyMap({ onOpenDemo }: { onOpenDemo: (id: DeptId) => void })
                   y1="50"
                   x2={POSITIONS[id].x}
                   y2={POSITIONS[id].y}
-                  stroke={
-                    active === id ? "rgba(59,130,246,0.65)" : "rgba(255,255,255,0.09)"
-                  }
+                  stroke={active === id ? RGBA.terracotta(0.5) : RGBA.sand(0.09)}
                   strokeWidth={active === id ? 0.5 : 0.28}
+                  style={{ transition: "stroke 300ms ease" }}
                 />
               ))}
               <line
@@ -60,21 +60,18 @@ export function CompanyMap({ onOpenDemo }: { onOpenDemo: (id: DeptId) => void })
                 y1="50"
                 x2="50"
                 y2={POSITIONS.founder.y}
-                stroke="rgba(59,130,246,0.4)"
+                stroke={RGBA.terracotta(0.28)}
                 strokeWidth={0.4}
               />
             </svg>
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-              <motion.div
-                animate={{ boxShadow: ["0 0 24px -6px rgba(59,130,246,0.6)", "0 0 48px -6px rgba(59,130,246,0.35)", "0 0 24px -6px rgba(59,130,246,0.6)"] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="flex flex-col items-center gap-1.5 rounded-2xl border border-primary/40 bg-card px-4 py-3"
-              >
+              <div className="elevate-warm flex flex-col items-center gap-1.5 rounded-2xl border border-primary/35 bg-card px-4 py-3">
                 <Logo className="h-6 w-6" />
                 <span className="font-display text-[11px] font-semibold">Orchestrator</span>
-              </motion.div>
+              </div>
             </div>
+
 
             {ORDER.map((id) => {
               const d = DEPARTMENTS.find((x) => x.id === id)!;
@@ -86,11 +83,12 @@ export function CompanyMap({ onOpenDemo }: { onOpenDemo: (id: DeptId) => void })
                   onMouseEnter={() => setActive(id)}
                   onFocus={() => setActive(id)}
                   onClick={() => (id === "founder" ? setActive(id) : onOpenDemo(id))}
-                  className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-xl border px-2.5 py-2 text-[11px] transition-all ${
+                  className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-xl border px-2.5 py-2 text-[11px] transition-all duration-300 ${
                     active === id
-                      ? "border-primary/50 bg-card text-foreground glow-accent"
+                      ? "elevate-warm border-primary/45 bg-card text-foreground"
                       : "border-border bg-card/70 text-muted-foreground hover:text-foreground"
                   }`}
+
                   style={{ left: `${p.x}%`, top: `${p.y}%` }}
                 >
                   <span className="flex items-center gap-1.5">

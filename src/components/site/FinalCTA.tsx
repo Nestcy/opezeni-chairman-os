@@ -16,7 +16,7 @@ export function FinalCTA() {
         </p>
         <div className="mt-9 flex justify-center">
           <Link to="/book">
-            <MagneticButton className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground glow-accent">
+            <MagneticButton className="btn-primary px-6 py-3.5 text-sm">
               Book Discovery Call
               <ArrowRight className="h-4 w-4" />
             </MagneticButton>

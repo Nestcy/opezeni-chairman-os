@@ -56,6 +56,7 @@ function BookPage() {
                 layout: "month_view",
                 theme: "dark",
               }}
+
               style={{
                 width: "100%",
                 height: "100%",

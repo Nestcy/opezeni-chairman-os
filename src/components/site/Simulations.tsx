@@ -255,7 +255,7 @@ export function Simulations({
             </div>
           </div>
 
-          <div className="mt-6 h-0.5 w-full overflow-hidden rounded-full bg-white/8">
+          <div className="mt-6 h-0.5 w-full overflow-hidden rounded-full bg-foreground/8">
             <motion.div
               className="h-full bg-primary"
               animate={{ width: `${(step / (STEPS - 1)) * 100}%` }}
@@ -276,7 +276,7 @@ export function Simulations({
                         {r.unit ?? ""}
                       </span>
                     </div>
-                    <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/8">
+                    <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-foreground/8">
                       <motion.div
                         className="h-full rounded-full"
                         style={{
@@ -318,7 +318,7 @@ export function Simulations({
                     >
                       <span
                         className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
-                          i === step ? "bg-primary" : "bg-white/25"
+                          i === step ? "bg-primary" : "bg-foreground/25"
                         }`}
                       />
                       <p
