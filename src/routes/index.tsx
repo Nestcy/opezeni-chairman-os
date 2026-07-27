@@ -44,6 +44,7 @@ function Index() {
       <Simulations active={dept} onChange={setDept} />
       <OperatorChairman />
       <Trust />
+      <DiscoveryProcess />
       <Architecture compact />
       <FinalCTA />
     </>
