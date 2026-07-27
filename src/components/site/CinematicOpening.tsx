@@ -10,6 +10,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import poster from "@/assets/founder-cafe-poster.jpg.asset.json";
 import clip from "@/assets/founder-cafe.mp4.asset.json";
+import { assetUrl } from "@/lib/asset";
 import { MagneticButton } from "./primitives";
 
 /**
