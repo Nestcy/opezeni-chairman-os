@@ -154,7 +154,7 @@ function Film({ className = "" }: { className?: string }) {
     <>
       {(!ready || failed) && (
         <img
-          src={poster.url}
+          src={assetUrl(poster)}
           alt="A founder sipping tea at an ocean-side cafe at golden hour"
           width={1280}
           height={720}
