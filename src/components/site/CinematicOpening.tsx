@@ -210,7 +210,6 @@ function StaticOpening() {
           </div>
         </div>
       </section>
-      <HeroDashboard />
     </>
   );
 }
