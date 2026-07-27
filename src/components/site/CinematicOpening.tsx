@@ -107,7 +107,6 @@ function Stage({
   const phoneScale = useTransform(progress, [0, 0.14, 0.3], [0.9, 0.94, 1]);
   const bezel = useTransform(progress, [0.42, 0.6], [1, 0]);
   const bezelPad = useTransform(bezel, (b) => `${b * 10}px`);
-  const notifOpacity = useTransform(progress, [0.3, 0.42], [1, 0]);
   const consoleOpacity = useTransform(progress, [0.44, 0.6], [0, 1]);
   const captionOpacity = useTransform(progress, [0, 0.12, 0.26], [1, 1, 0]);
   const outroOpacity = useTransform(progress, [0.74, 0.86], [0, 1]);
