@@ -194,20 +194,15 @@ function Film({ className = "" }: { className?: string }) {
 }
 
 
-/** Reduced-motion fallback: the still, then the console — no choreography. */
+/** Reduced-motion fallback: the film still plays, but with no scroll choreography. */
 function StaticOpening() {
   return (
     <>
       <section className="relative z-10 h-[70vh] min-h-[480px] overflow-hidden">
-        <img
-          src={poster.url}
-          alt="A founder sipping tea at an ocean-side cafe at golden hour"
-          width={1280}
-          height={720}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <Film />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
       </section>
+
       <section className="relative z-10 px-4 pt-10">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
