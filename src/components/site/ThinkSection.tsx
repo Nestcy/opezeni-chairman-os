@@ -158,23 +158,23 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
         </div>
 
         {/* copy */}
-        <div className="relative min-h-[180px]">
+        <div className="relative min-h-[140px]">
           <motion.div style={{ opacity: act1Text }} className="absolute inset-0">
             <h2 className="text-3xl font-semibold text-balance-tight sm:text-4xl">
               Every decision flows through you.
             </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-3 text-muted-foreground">
               That's not a company. That's a bottleneck.
             </p>
           </motion.div>
           <motion.div style={{ opacity: act2Text }} className="absolute inset-0">
-            <h2 className="mt-3 flex flex-wrap items-center gap-x-3 font-display text-3xl font-semibold sm:text-4xl">
+            <h2 className="mt-2 flex flex-wrap items-center gap-x-3 font-display text-3xl font-semibold sm:text-4xl">
               <span>Operator</span>
               <span className="text-primary">→</span>
               <span>Chairman</span>
             </h2>
 
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-3 text-muted-foreground">
               Opezeni takes the center. Agents resume. The founder receives summaries, not queues.
             </p>
           </motion.div>
