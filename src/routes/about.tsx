@@ -152,9 +152,9 @@ function AboutPage() {
       {/* ---------------- Section 4 — Long-term vision ---------------- */}
       <section className="relative z-10 px-4 pt-16 pb-32">
         <Reveal className="glass relative mx-auto max-w-4xl overflow-hidden rounded-3xl px-6 py-20 sm:px-14">
-          <VisionNetwork className="pointer-events-none absolute -top-6 left-1/2 h-64 w-[600px] -translate-x-1/2" />
+          <VisionNetwork className="pointer-events-none absolute -top-10 -right-16 h-56 w-[520px] opacity-70" />
 
-          <div className="relative mt-16">
+          <div className="relative">
             <h2 className="max-w-2xl text-4xl font-semibold text-balance-tight sm:text-5xl">
               I'm not building another AI tool.
             </h2>
