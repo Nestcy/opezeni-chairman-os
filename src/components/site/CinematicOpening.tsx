@@ -207,7 +207,7 @@ function ConsoleScreen() {
         ))}
       </div>
 
-      <div className="mt-3 grid flex-1 gap-2.5 overflow-hidden sm:grid-cols-2">
+      <div className="mt-3 grid content-start gap-2.5 overflow-hidden sm:grid-cols-2">
         {CONSOLE_AGENTS.map((a) => (
           <div
             key={a.name}
