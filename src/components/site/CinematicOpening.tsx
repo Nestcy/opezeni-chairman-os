@@ -49,7 +49,7 @@ export function CinematicOpening() {
   if (reduced) return <StaticOpening />;
 
   return (
-    <section ref={ref} className="relative z-10 h-[250vh]" aria-label="Opezeni opening sequence">
+    <section ref={ref} className="relative z-20 h-[250vh]" aria-label="Opezeni opening sequence">
       <div className="sticky top-0 h-screen overflow-hidden">
         <Stage progress={progress} />
       </div>
