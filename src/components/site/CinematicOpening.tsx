@@ -282,9 +282,6 @@ function StaticOpening() {
         className="absolute inset-0 h-full w-full object-cover opacity-70"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
-      <div className="absolute inset-0 flex items-center justify-center px-4">
-        <div className="h-[440px] w-[248px] overflow-hidden rounded-[1.6rem] border border-border bg-surface" />
-      </div>
     </section>
   );
 }
