@@ -63,7 +63,9 @@ function ProductPage() {
             ))}
           </div>
 
+          <div className="mt-24" />
           <SectionHeader
+
             eyebrow="Guardrails"
             title="Autonomy with a ceiling."
             subtitle="Every agent operates inside spend limits, policy documents and escalation rules you set once. Exceptions come to you as a single brief — never as a queue."
