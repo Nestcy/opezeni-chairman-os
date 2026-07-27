@@ -40,8 +40,9 @@ export function Navbar() {
         <div className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <Link
-              key={l.to}
+              key={l.label}
               to={l.to}
+              hash={"hash" in l ? l.hash : undefined}
               className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
@@ -77,8 +78,9 @@ export function Navbar() {
         >
           {links.map((l) => (
             <Link
-              key={l.to}
+              key={l.label}
               to={l.to}
+              hash={"hash" in l ? l.hash : undefined}
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
             >
