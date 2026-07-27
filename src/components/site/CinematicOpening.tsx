@@ -1,4 +1,10 @@
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import { LineChart, Megaphone, LifeBuoy, Users, Wallet } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import poster from "@/assets/opening-poster.jpg.asset.json";
