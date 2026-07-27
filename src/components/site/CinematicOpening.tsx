@@ -4,7 +4,8 @@ import {
   useMotionValue,
   useReducedMotion,
   useTransform,
-} from "frframer-motion";
+  type MotionValue,
+} from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import poster from "@/assets/founder-cafe-poster.jpg.asset.json";
