@@ -160,8 +160,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
         {/* copy */}
         <div className="relative min-h-[180px]">
           <motion.div style={{ opacity: act1Text }} className="absolute inset-0">
-            <p className="mono-label text-[color:var(--danger)]">Act 01 — The bottleneck</p>
-            <h2 className="mt-3 text-3xl font-semibold text-balance-tight sm:text-4xl">
+            <h2 className="text-3xl font-semibold text-balance-tight sm:text-4xl">
               Every decision flows through one person.
             </h2>
             <p className="mt-4 text-muted-foreground">
