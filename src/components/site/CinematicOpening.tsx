@@ -103,7 +103,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
         className="absolute inset-0 flex flex-col items-center justify-center px-4"
       >
         <div className="mx-auto w-full max-w-3xl text-center">
-          <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
+          <h1 className="text-hero font-normal text-balance-tight">
             Run your software company
             <br className="hidden sm:block" /> without running it.
           </h1>
@@ -193,7 +193,7 @@ function StaticOpening() {
 
       <section className="relative z-10 px-4 pt-10">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-3xl leading-[1.05] font-semibold text-balance-tight sm:text-5xl">
+          <h1 className="text-hero font-normal text-balance-tight">
             Run your software company without running it.
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">

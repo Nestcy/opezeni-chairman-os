@@ -103,7 +103,7 @@ export function CompanyMap({ onOpenDemo }: { onOpenDemo: (id: DeptId) => void })
           <Reveal delay={0.1} className="rounded-3xl border border-border bg-card/60 p-6">
             <div className="flex items-center gap-2">
               <activeDept.icon className="h-4 w-4 text-primary" aria-hidden />
-              <h3 className="font-display text-lg font-semibold">{activeDept.name}</h3>
+              <h3 className="font-display text-lg">{activeDept.name}</h3>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {activeDept.summary}

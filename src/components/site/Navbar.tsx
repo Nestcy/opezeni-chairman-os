@@ -33,7 +33,7 @@ export function Navbar() {
       >
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <Logo className="h-6 w-6" />
-          <span className="font-display text-[15px] font-semibold tracking-tight">Opezeni</span>
+          <span className="font-display text-base font-semibold tracking-tight">Opezeni</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

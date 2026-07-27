@@ -31,7 +31,7 @@ function ProductPage() {
         <div className="mx-auto max-w-6xl">
           <Reveal className="max-w-3xl">
             <p className="mono-label">Product</p>
-            <h1 className="mt-4 text-4xl leading-tight font-semibold text-balance-tight sm:text-5xl">
+            <h1 className="mt-4 text-hero leading-tight text-balance-tight">
               Not automations. Operators that decide.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
@@ -45,7 +45,7 @@ function ProductPage() {
               <Reveal key={a.id} delay={i * 0.06}>
                 <TiltCard className="h-full p-6">
                   <a.icon className="h-5 w-5 text-primary" aria-hidden />
-                  <h2 className="mt-4 font-display text-lg font-semibold">{a.name}</h2>
+                  <h2 className="mt-4 font-display text-lg">{a.name}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.summary}</p>
                   <ul className="mt-5 space-y-1.5">
                     {a.responsibilities.map((r) => (
