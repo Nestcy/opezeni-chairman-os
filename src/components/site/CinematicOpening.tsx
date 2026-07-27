@@ -281,7 +281,6 @@ function StaticOpening() {
         height={1088}
         className="absolute inset-0 h-full w-full object-cover opacity-70"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
     </section>
   );
 }
