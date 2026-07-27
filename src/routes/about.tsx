@@ -54,27 +54,28 @@ function AboutPage() {
             </h1>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-12">
-            <div className="flex items-center gap-5">
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-border">
+          <Reveal delay={0.1} className="mt-14">
+            <figure className="grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+              <div className="relative overflow-hidden rounded-2xl border border-border">
                 <img
                   src={portrait.url}
                   alt="Ernest Zimba, founder of Opezeni"
-                  className="h-full w-full object-cover grayscale"
+                  className="aspect-[4/5] w-full object-cover object-center sm:aspect-[5/4]"
                   loading="lazy"
                 />
                 <span
-                  className="absolute inset-0 bg-primary/25 mix-blend-color"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent"
                   aria-hidden
                 />
               </div>
-              <div className="font-mono text-[11px] leading-relaxed tracking-wider text-muted-foreground uppercase">
+              <figcaption className="font-mono text-[11px] leading-relaxed tracking-wider text-muted-foreground uppercase sm:pb-2">
                 <p className="text-foreground">Ernest Zimba</p>
                 <p>Founder — AI/ML engineer</p>
                 <p>Lusaka, Zambia</p>
-              </div>
-            </div>
+              </figcaption>
+            </figure>
           </Reveal>
+
 
           <Reveal
             delay={0.15}
