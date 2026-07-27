@@ -160,7 +160,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
         {/* copy */}
         <div className="relative min-h-[140px]">
           <motion.div style={{ opacity: act1Text }} className="absolute inset-0">
-            <h2 className="text-3xl font-semibold text-balance-tight">
+            <h2 className="text-3xl text-balance-tight">
               Every decision flows through you.
             </h2>
             <p className="mt-3 text-muted-foreground">
@@ -168,7 +168,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
             </p>
           </motion.div>
           <motion.div style={{ opacity: act2Text }} className="absolute inset-0">
-            <h2 className="mt-2 flex flex-wrap items-center gap-x-3 font-display text-3xl font-semibold">
+            <h2 className="mt-2 flex flex-wrap items-center gap-x-3 font-display text-3xl">
               <span>Operator</span>
               <span className="text-primary">→</span>
               <span>Chairman</span>

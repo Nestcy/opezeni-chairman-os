@@ -186,7 +186,7 @@ function StageCard({ stage, index }: { stage: Stage; index: number }) {
             )}
           </div>
 
-          <h3 className="mt-3 font-display text-xl font-semibold text-balance-tight">
+          <h3 className="mt-3 font-display text-xl text-balance-tight">
             {stage.title}
           </h3>
 
@@ -267,7 +267,7 @@ function FitCard({
         >
           <Icon className="h-4 w-4" />
         </span>
-        <h3 className="font-display text-lg font-semibold">{title}</h3>
+        <h3 className="font-display text-lg">{title}</h3>
       </div>
 
       <ul className="mt-6 space-y-3">
@@ -331,7 +331,7 @@ export function DiscoveryProcess({ ctaTargetId }: { ctaTargetId?: string }) {
         </div>
 
         <Reveal className="glass mt-16 rounded-3xl px-6 py-14 text-center sm:px-12">
-          <h2 className="text-3xl font-semibold text-balance-tight">
+          <h2 className="text-3xl text-balance-tight">
             Ready to see what Opezeni could look like inside your company?
           </h2>
           <div className="mt-8 flex justify-center">

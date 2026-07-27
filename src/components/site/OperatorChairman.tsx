@@ -31,7 +31,7 @@ export function OperatorChairman() {
           <Reveal className="rounded-3xl border border-[color:var(--danger)]/25 bg-[color:var(--danger)]/[0.04] p-7">
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-[color:var(--danger)]" aria-hidden />
-              <h3 className="font-display text-xl font-semibold">Operator</h3>
+              <h3 className="font-display text-xl">Operator</h3>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
               Everything routes through the founder.
@@ -69,7 +69,7 @@ export function OperatorChairman() {
           >
             <div className="flex items-center gap-2">
               <Check className="h-4 w-4 text-[color:var(--success)]" aria-hidden />
-              <h3 className="font-display text-xl font-semibold">Chairman</h3>
+              <h3 className="font-display text-xl">Chairman</h3>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
               Everything routes through Opezeni.

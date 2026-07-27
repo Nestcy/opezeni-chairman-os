@@ -45,7 +45,7 @@ function ArchitecturePage() {
         <div className="mx-auto max-w-6xl">
           <Reveal className="max-w-3xl">
             <p className="mono-label">Architecture</p>
-            <h1 className="mt-4 text-hero leading-tight font-semibold text-balance-tight">
+            <h1 className="mt-4 text-hero leading-tight text-balance-tight">
               A company, expressed as a system.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
@@ -58,7 +58,7 @@ function ArchitecturePage() {
               <Reveal key={l.name} delay={i * 0.07}>
                 <TiltCard className="h-full p-6">
                   <p className="mono-label">Layer 0{i + 1}</p>
-                  <h2 className="mt-3 font-display text-base font-semibold">{l.name}</h2>
+                  <h2 className="mt-3 font-display text-base">{l.name}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.body}</p>
                 </TiltCard>
               </Reveal>

@@ -227,7 +227,7 @@ export function Simulations({
             <div>
               <div className="flex items-center gap-2">
                 <StatusDot tone={done ? "accent" : "success"} paused={!playing} />
-                <h3 className="font-display text-xl font-semibold">{sim.title}</h3>
+                <h3 className="font-display text-xl">{sim.title}</h3>
               </div>
               <p className="mt-2 max-w-lg text-sm text-muted-foreground">{sim.subtitle}</p>
             </div>

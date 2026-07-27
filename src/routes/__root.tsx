@@ -20,7 +20,7 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
         <p className="mono-label">Error 404</p>
-        <h1 className="mt-4 text-6xl font-semibold">Off the map</h1>
+        <h1 className="mt-4 text-6xl">Off the map</h1>
         <p className="mt-3 text-sm text-muted-foreground">
           No agent is assigned to this route. Head back to the console.
         </p>
@@ -47,7 +47,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight">This page didn't load</h1>
+        <h1 className="text-xl tracking-tight">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. Try again or head back home.
         </p>

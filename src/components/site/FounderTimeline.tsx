@@ -46,7 +46,7 @@ export function FounderTimeline() {
                 aria-hidden
               />
               <p className="mono-label">{e.tag}</p>
-              <h3 className="mt-3 font-display text-xl font-semibold text-balance-tight">
+              <h3 className="mt-3 font-display text-xl text-balance-tight">
                 {e.title}
               </h3>
               <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">

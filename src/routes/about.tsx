@@ -49,7 +49,7 @@ function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <p className="mono-label">Why Opezeni exists</p>
-            <h1 className="mt-5 text-hero leading-[1.08] font-semibold text-balance-tight">
+            <h1 className="mt-5 text-hero leading-[1.08] text-balance-tight">
               Most AI automates the work. The founder still makes every decision.
             </h1>
           </Reveal>
@@ -112,7 +112,7 @@ function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <p className="mono-label">How I think</p>
-            <h2 className="mt-4 text-3xl font-semibold text-balance-tight">
+            <h2 className="mt-4 text-3xl text-balance-tight">
               Operating principles
             </h2>
           </Reveal>
@@ -122,7 +122,7 @@ function AboutPage() {
               <Reveal key={p.n} delay={i * 0.08}>
                 <TiltCard className="p-7 sm:p-8" intensity={3}>
                   <p className="font-mono text-xs tracking-widest text-primary">{p.n}</p>
-                  <h3 className="mt-4 font-display text-lg font-semibold">{p.k}</h3>
+                  <h3 className="mt-4 font-display text-lg">{p.k}</h3>
                   <p className="mt-3 text-base leading-relaxed text-muted-foreground">{p.v}</p>
                 </TiltCard>
               </Reveal>
@@ -136,7 +136,7 @@ function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <p className="mono-label">Track record</p>
-            <h2 className="mt-4 text-3xl font-semibold text-balance-tight">
+            <h2 className="mt-4 text-3xl text-balance-tight">
               What I have actually shipped.
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -156,7 +156,7 @@ function AboutPage() {
           <VisionNetwork className="pointer-events-none absolute -top-10 -right-16 h-56 w-[520px] opacity-70" />
 
           <div className="relative">
-            <h2 className="max-w-2xl text-hero font-semibold text-balance-tight">
+            <h2 className="max-w-2xl text-hero text-balance-tight">
               I'm not building another AI tool.
             </h2>
 
