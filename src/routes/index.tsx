@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CinematicOpening } from "@/components/site/CinematicOpening";
-import { HeroIntro } from "@/components/site/HeroIntro";
-import { HeroDashboard } from "@/components/site/HeroDashboard";
 import { ThinkSection } from "@/components/site/ThinkSection";
 import { CompanyMap } from "@/components/site/CompanyMap";
 import { Simulations } from "@/components/site/Simulations";
@@ -40,9 +38,7 @@ function Index() {
 
   return (
     <>
-      <HeroIntro />
       <CinematicOpening />
-      <HeroDashboard />
       <ThinkSection />
       <CompanyMap onOpenDemo={openDemo} />
       <Simulations active={dept} onChange={setDept} />
