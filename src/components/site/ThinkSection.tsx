@@ -97,24 +97,15 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
                 <div className="min-w-0">
                   <p className="truncate text-[10px] font-medium">{n.name.split(" ")[0]}</p>
                   <motion.p
-                    className="truncate font-mono text-[9px]"
-                    style={{
-                      color: useTransform(green, (g) =>
-                        g > 0.5 ? "var(--success)" : "var(--muted-foreground)",
-                      ),
-                    }}
+                    className="relative truncate font-mono text-[9px]"
+                    style={{ color: statusColor }}
                   >
-                    <motion.span style={{ opacity: useTransform(green, [0, 1], [1, 0]) }}>
-                      Waiting…
-                    </motion.span>
-                    <motion.span
-                      className="absolute"
-                      style={{ opacity: green }}
-                      aria-hidden
-                    >
+                    <motion.span style={{ opacity: waitingOpacity }}>Waiting…</motion.span>
+                    <motion.span className="absolute left-0" style={{ opacity: green }} aria-hidden>
                       Running
                     </motion.span>
                   </motion.p>
+
                 </div>
               </motion.div>
             ))}
